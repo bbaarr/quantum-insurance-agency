@@ -1,30 +1,31 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import "./quantum-site.css";
 
-// You MAY adjust the metadata and add fonts to match your design.
-// NEVER next/font/google — the build sandbox has no Google egress, so the fetch
-// hangs at compile and the preview renders blank. Use the zero-network stack in
-// globals.css, or self-host a .woff2 via next/font/local.
 export const metadata: Metadata = {
-  title: "Quantum | Financial & Insurance Planning",
+  title: "קוואנטום | ביטוח, פנסיה ותכנון פיננסי",
   description:
-    "Family financial planning, pension reviews, retirement planning and insurance guidance from Quantum.",
+    "תכנון פיננסי למשפחה, תכנון פנסיוני ופרישה, ביטוחי פרט וביטוח רכוש ועסק — קוואנטום סוכנות לביטוח.",
+  openGraph: {
+    title: "קוואנטום | ביטוח, פנסיה ותכנון פיננסי",
+    description: "קוואנטום — ביטוח. פנסיה. פיננסים.",
+    type: "website",
+    siteName: "קוואנטום",
+  },
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="he" dir="rtl">
       <body className="min-h-dvh antialiased">
         {children}
-        {/* Imagine Make preview runtime — only active when framed by the editor. */}
         <Script
           src="https://cdn-chatly.vyro.ai/chatly-make/sites-script/make-preview-runtime.js"
           strategy="afterInteractive"
         />
-        {/* Imagine preview heading override — only active when framed. */}
         <Script
           src="https://cdn-chatly.vyro.ai/chatly-make/sites-script/heading-override.js"
           strategy="afterInteractive"

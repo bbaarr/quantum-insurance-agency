@@ -6,11 +6,11 @@
 
 ## What this is
 
-A responsive website introducing Quantum’s family financial planning, pension, retirement and insurance services.
+A Hebrew, right-to-left website introducing Quantum’s financial planning, pension, retirement and insurance services.
 
 ## What it enables
 
-Help prospective clients understand Quantum’s services and contact the agency directly by email or WhatsApp.
+Help prospective clients understand Quantum’s services and contact the agency directly by email, phone or WhatsApp.
 
 ## Primary user
 
@@ -18,11 +18,11 @@ Individuals and families reviewing financial goals, pensions, retirement plans o
 
 ## What exists today
 
-Responsive Quantum homepage with five service areas, a three-step review overview and practical FAQs. - Direct email, phone and WhatsApp contact links. - Automatic enquiry form intentionally deferred until hosted delivery is chosen.
+Responsive Hebrew homepage and five individual service pages, plus a contact page. - Floating contents navigation for site pages and in-page sections. - Supplied Quantum logo, dark navy and silver-blue styling, and mobile layouts. - Direct email, office phone and WhatsApp links using the confirmed +972 business number. - Enquiry form with genuine pending, success and error states; external Formspree endpoint is not configured yet. - The site does not store leads; Formspree may retain submissions under its own terms. - Preview only; the domain is not connected.
 
 ## Brand commitments & durable constraints
 
-Keep the site lightweight and static-first; no database, CRM, analytics tracking or account system. - Do not claim guaranteed investment returns, retirement income or insurance outcomes. - Insurance coverage is governed by underwriting, applicable law and the issued policy. - Do not invent credentials, testimonials, metrics or a business address. - Responsive Quantum homepage with five service areas, a three-step review overview and practical FAQs. - Direct email, phone and WhatsApp links using the confirmed +972 number. - Enquiry form prepares a draft in the visitor’s email app; it does not send automatically or store leads on the site. - Preview only; the domain is not connected.
+Keep the site lightweight and static-first; no database, CRM, analytics tracking or account system. - Do not claim guaranteed investment returns, retirement income or insurance outcomes. - Insurance coverage is governed by underwriting, applicable law and the issued policy. - Do not invent credentials, testimonials, metrics or a business address. - Do not report an enquiry as sent unless the external email service accepts it. - Do not publish the site or connect the domain without an explicit request.
 
 - **This project already HAS a committed visual world — do NOT offer a design picker.** `.project/DESIGN_SYSTEM.md` records a direction someone decided on, and the code, tokens and components are built around it. Read it, inherit it, and make the requested change inside it. Dealing six alternative worlds here offers to throw away a working design system nobody asked you to replace.
 - **Tailoring is not redesigning.** "Make it about my business", new copy, a different logo, swapped imagery, a brand colour — all of that lands INSIDE the committed world. Change what was asked for and leave the direction alone.
@@ -37,7 +37,7 @@ Keep the site lightweight and static-first; no database, CRM, analytics tracking
 
 ## Positioning
 
-A responsive website introducing Quantum’s family financial planning, pension, retirement and insurance services.
+A Hebrew, right-to-left website introducing Quantum’s financial planning, pension, retirement and insurance services.
 
 ## Operating Context
 
@@ -45,7 +45,7 @@ Responsive web, built unattended in one pass. Task mode: Operate.
 
 ## Evidence on Hand
 
-Responsive Quantum homepage with five service areas, a three-step review overview and practical FAQs. - Direct email, phone and WhatsApp contact links. - Automatic enquiry form intentionally deferred until hosted delivery is chosen.
+Responsive Hebrew homepage and five individual service pages, plus a contact page. - Floating contents navigation for site pages and in-page sections. - Supplied Quantum logo, dark navy and silver-blue styling, and mobile layouts. - Direct email, office phone and WhatsApp links using the confirmed +972 business number. - Enquiry form with genuine pending, success and error states; external Formspree endpoint is not configured yet. - The site does not store leads; Formspree may retain submissions under its own terms. - Preview only; the domain is not connected.
 
 ## Product Principles
 
