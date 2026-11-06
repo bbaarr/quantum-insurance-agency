@@ -1695,3 +1695,23 @@ html:has(.quantum-site) {
     transform: none;
   }
 }
+
+/* Round-2 audit fixes */
+.quantum-site .skip-link {
+  color: var(--brand-paper);
+}
+
+.contents-panel[data-slot="sheet-content"] {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-height: 100dvh;
+}
+
+.quantum-site .form-setup-notice a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.quantum-site .enquiry-status:focus {
+  outline: none;
+}

@@ -51,6 +51,9 @@ export default function EnquiryEmailForm({ defaultService }: EnquiryEmailFormPro
           ? document.querySelector<HTMLElement>('[aria-labelledby="enquiry-consent-label"]')
           : document.getElementById(id);
       target?.focus();
+    } else if (state.status === "error") {
+      // A send failure isn't about one field: move focus to the message itself.
+      document.getElementById("enquiry-status")?.focus();
     }
   }, [state]);
 
@@ -149,7 +152,7 @@ export default function EnquiryEmailForm({ defaultService }: EnquiryEmailFormPro
         {pending ? "שולחים…" : "שליחת פרטים"}
         <ArrowUpLeft aria-hidden="true" size={17} strokeWidth={1.8} />
       </Button>
-      <p aria-live="polite" id="enquiry-status" className={`enquiry-status ${pending ? "pending" : state.status}`} role="status">
+      <p aria-live="polite" id="enquiry-status" tabIndex={-1} className={`enquiry-status ${pending ? "pending" : state.status}`} role="status">
         {pending ? "שולחים את הפנייה…" : state.message}
       </p>
     </form>
