@@ -35,6 +35,7 @@ export default function SiteHeader() {
           <ArrowUpLeft aria-hidden="true" size={17} strokeWidth={1.8} />
         </Link>
       </div>
+      <span aria-hidden="true" className="scroll-progress" />
     </header>
   );
 }

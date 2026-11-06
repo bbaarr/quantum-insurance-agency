@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowDownLeft, ArrowUpLeft, ChevronLeft } from "lucide-react";
+import ScrollStory from "@/components/site/ScrollStory";
 import SiteFrame from "@/components/site/SiteFrame";
 import { homeFaq, homeSections, servicePages } from "@/lib/site-content";
 
@@ -85,6 +86,8 @@ export default function Home() {
           <p>לפעול מתוך מידע</p>
         </div>
       </section>
+
+      <ScrollStory />
 
       <section className="content-section services-section" id="services">
         <div className="content-shell">

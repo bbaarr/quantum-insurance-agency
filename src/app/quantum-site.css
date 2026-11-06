@@ -1958,3 +1958,177 @@
     display: none;
   }
 }
+
+/* Smooth scrolling (Lenis) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* Reading progress under the sticky header, in the logo's blue gradient */
+.scroll-progress {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: right center;
+  background: var(--brand-gradient);
+  pointer-events: none;
+}
+
+.hero-watermark,
+.page-hero-mark {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
+  }
+}
+
+/* Scroll story: scattered pieces gather into the Quantum Q */
+.scroll-story {
+  position: relative;
+  height: 360vh;
+  background:
+    radial-gradient(60rem 40rem at 50% 45%, oklch(0.24 0.04 252 / 70%), transparent 70%),
+    var(--brand-night);
+  color: var(--brand-paper);
+}
+
+.story-stage {
+  position: sticky;
+  top: 0;
+  display: grid;
+  height: 100svh;
+  overflow: hidden;
+  grid-template-rows: minmax(0, 1fr) auto;
+  place-items: center;
+  padding-block: 7rem 3.5rem;
+}
+
+.story-canvas {
+  position: relative;
+  display: grid;
+  width: min(100%, 60rem);
+  height: 100%;
+  place-items: center;
+}
+
+.story-symbol {
+  width: clamp(12rem, 30vw, 22rem);
+  height: auto;
+  overflow: visible;
+}
+
+.story-ring-track {
+  stroke: oklch(0.82 0.012 245 / 9%);
+}
+
+.story-glow {
+  position: absolute;
+  width: clamp(16rem, 40vw, 30rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.7 0.14 235 / 32%), transparent 65%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.story-piece {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0.6rem 1rem;
+  border: 1px solid oklch(0.76 0.12 225 / 40%);
+  border-radius: 999px;
+  background: oklch(0.18 0.021 254 / 85%);
+  color: var(--brand-silver);
+  font-size: clamp(0.72rem, 1.4vw, 0.95rem);
+  font-weight: 650;
+  white-space: nowrap;
+  box-shadow: 0 10px 30px oklch(0.05 0.01 250 / 40%);
+}
+
+.story-captions {
+  position: relative;
+  display: grid;
+  width: min(100% - 2rem, 58rem);
+  min-height: 7.5rem;
+  place-items: center;
+  text-align: center;
+}
+
+.story-caption,
+.story-final {
+  grid-area: 1 / 1;
+  margin: 0;
+}
+
+.story-caption {
+  color: var(--brand-paper);
+  font-size: clamp(1.35rem, 3.4vw, 2.4rem);
+  font-weight: 720;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.story-caption span {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--brand-ice);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.story-final-title {
+  margin: 0;
+  background: linear-gradient(135deg, var(--brand-paper), var(--brand-silver));
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(2.2rem, 6vw, 4.6rem);
+  font-weight: 780;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+.story-final-sub {
+  margin: 0.9rem 0 0;
+  color: var(--brand-silver);
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+}
+
+/* Without motion: a static, complete scene. */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-story {
+    height: auto;
+  }
+
+  .story-stage {
+    position: relative;
+    height: auto;
+    min-height: 34rem;
+  }
+
+  .story-piece,
+  .story-caption {
+    display: none;
+  }
+}
