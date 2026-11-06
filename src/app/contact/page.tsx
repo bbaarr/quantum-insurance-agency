@@ -33,7 +33,7 @@ export default function ContactPage() {
         <div className="content-shell page-hero-grid">
           <div className="page-hero-copy">
             <p className="eyebrow"><span className="eyebrow-mark" /> אנחנו כאן לשיחה</p>
-            <h1>יצירת קשר</h1>
+            <h1>בואו נדבר.</h1>
             <p className="page-hero-summary">
               בחרו את הדרך שנוחה לכם — דוא״ל, שיחת טלפון, WhatsApp או פנייה מקוונת.
             </p>

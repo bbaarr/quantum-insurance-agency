@@ -21,18 +21,18 @@ export const metadata: Metadata = {
 const processSteps = [
   {
     number: "01",
-    title: "מתחילים בהקשבה",
-    description: "ממפים מטרות, נתונים, תוכניות וכיסויים שכבר קיימים.",
+    title: "מקשיבים לכם",
+    description: "מכירים את המשפחה, את המטרות ואת מה שכבר קיים: חסכונות, תוכניות וכיסויים.",
   },
   {
     number: "02",
-    title: "מבינים את האפשרויות",
-    description: "בוחנים פרטים, תנאים, דמי ניהול, גבולות ושאלות שכדאי לברר.",
+    title: "ממפים את התמונה",
+    description: "בוחנים תנאים, דמי ניהול, מסלולים וכיסויים, ומסמנים מה כדאי לברר.",
   },
   {
     number: "03",
-    title: "מתקדמים לפי הצורך",
-    description: "מגבשים תמונת מצב שאפשר לחזור ולבחון כשהנסיבות משתנות.",
+    title: "בונים תוכנית",
+    description: "מגבשים יחד דרך פעולה ברורה, וחוזרים אליה כשהחיים משתנים.",
   },
 ];
 
@@ -46,9 +46,9 @@ export default function Home() {
         <div className="content-shell home-hero-inner">
           <div className="home-hero-copy">
             <p className="eyebrow"><span className="eyebrow-mark" /> ביטוח. פנסיה. פיננסים.</p>
-            <h1>רואים את כל התמונה.<br /><span>בוחרים את הצעד הבא.</span></h1>
+            <h1>רואים רחוק.<br /><span>מתכננים נכון.</span></h1>
             <p className="home-hero-summary">
-              קוואנטום מלווה משפחות בבחינת מטרות, חסכונות, תוכניות פנסיוניות וכיסויים ביטוחיים — כדי להבין מה קיים ואילו אפשרויות כדאי לבדוק.
+              קוואנטום מחברת בין חיסכון, פנסיה וביטוח לתמונה אחת מסודרת, ומלווה אתכם ואת המשפחה בכל שלב בדרך.
             </p>
             <div className="hero-actions">
               <Link className="primary-link" href="/contact">
@@ -60,7 +60,7 @@ export default function Home() {
             </div>
           </div>
           <div aria-label="תהליך בחינה בשלושה שלבים" className="hero-index" role="img">
-            <p className="hero-index-title">מבט רחב<br />מתחיל בשאלות הנכונות</p>
+            <p className="hero-index-title">שלושה צעדים<br />לתמונה כלכלית מלאה</p>
             {processSteps.map((step) => (
               <div className="hero-index-row" key={step.number}>
                 <span>{step.number}</span>
@@ -76,17 +76,17 @@ export default function Home() {
         </div>
         <div className="hero-bottom-rule" aria-hidden="true">
           <span>קוואנטום סוכנות לביטוח</span>
-          <span>תכנון. בדיקה. בחירה.</span>
+          <span>תכנון. ליווי. ראייה קדימה.</span>
         </div>
       </section>
 
       <section className="statement-band" aria-label="גישת קוואנטום">
         <div className="content-shell statement-inner">
-          <p>להבין מה יש</p>
+          <p>יחס אישי</p>
           <span aria-hidden="true" />
-          <p>לבחון מה מתאים</p>
+          <p>ראייה כוללת</p>
           <span aria-hidden="true" />
-          <p>לפעול מתוך מידע</p>
+          <p>ליווי לאורך זמן</p>
         </div>
       </section>
 
@@ -97,10 +97,10 @@ export default function Home() {
           <div className="section-heading">
             <div>
               <p className="eyebrow"><span className="eyebrow-mark" /> תחומי השירות</p>
-              <h2>חמישה תחומים.<br /><span>תמונה אחת רחבה.</span></h2>
+              <h2>כל מה שחשוב<br /><span>לעתיד הכלכלי שלכם.</span></h2>
             </div>
             <p>
-              בוחנים את הנושאים הרלוונטיים למצבכם ולמטרות שהגדרתם. כל שירות עומד בפני עצמו ויכול להשתלב בתמונה המשפחתית הכוללת.
+              חיסכון, פנסיה, פרישה וביטוח, בראייה אחת ותחת קורת גג אחת. כל תחום עומד בפני עצמו, ויחד הם בונים את התמונה המשפחתית השלמה.
             </p>
           </div>
 
@@ -124,9 +124,9 @@ export default function Home() {
         <div className="content-shell process-layout">
           <div className="process-intro">
             <p className="eyebrow"><span className="eyebrow-mark" /> איך מתקדמים</p>
-            <h2>קודם מבינים.<br /><span>אחר כך בוחרים.</span></h2>
+            <h2>קודם מקשיבים.<br /><span>אחר כך מתכננים.</span></h2>
             <p>
-              תהליך מסודר מתחיל בהקשבה ובהבנת התמונה הכלכלית. אין תוצאה אחת שמתאימה לכולם, ולכן בוחנים את הנתונים והאפשרויות לפי הנסיבות.
+              אין תוכנית אחת שמתאימה לכולם. לכן כל תהליך מתחיל בהיכרות אישית, ממשיך בבדיקה יסודית של הנתונים ומסתיים בדרך פעולה שמתאימה לכם.
             </p>
           </div>
           <div className="process-list">
@@ -148,8 +148,8 @@ export default function Home() {
         <div className="content-shell faq-layout">
           <div className="section-aside">
             <p className="eyebrow"><span className="eyebrow-mark" /> לפני שמתחילים</p>
-            <h2>שאלות<br /><span>נפוצות.</span></h2>
-            <p>תשובות ברורות על בדיקת תוכניות, ציפיות וכיסוי ביטוחי.</p>
+            <h2>שאלות<br /><span>שכדאי לשאול.</span></h2>
+            <p>תשובות ישירות על תכנון, בדיקת תוכניות וכיסוי ביטוחי.</p>
           </div>
           <div className="faq-list">
             {homeFaq.map((item) => (
@@ -167,8 +167,8 @@ export default function Home() {
         <div className="content-shell contact-banner-inner">
           <div>
             <p className="eyebrow"><span className="eyebrow-mark" /> הצעד הבא</p>
-            <h2>מה תרצו לבדוק?</h2>
-            <p>ספרו לנו על הנושא שמעסיק אתכם ונמשיך משם.</p>
+            <h2>בואו נבנה את התוכנית שלכם.</h2>
+            <p>שיחת היכרות קצרה, ונבין יחד מה הצעד הבא.</p>
           </div>
           <Link className="contact-banner-link" href="/contact">
             לכל פרטי הקשר <ArrowUpLeft aria-hidden="true" size={18} />

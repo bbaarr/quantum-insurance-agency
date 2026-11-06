@@ -40,7 +40,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         <div className="content-shell service-content-grid">
           <div className="section-aside">
             <p className="eyebrow">סקירה לפי הצורך</p>
-            <h2>מה אפשר לבדוק יחד?</h2>
+            <h2>מה נבדוק יחד איתכם</h2>
             <p>
               היקף הבדיקה נקבע לפי המידע שתשתפו, הנסיבות האישיות והנושאים שחשובים לכם.
             </p>
@@ -82,7 +82,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           <div className="related-heading">
             <div>
               <p className="eyebrow">המשך התמונה</p>
-              <h2>תחומים נוספים לבדיקה</h2>
+              <h2>ממשיכים לבנות את התמונה</h2>
             </div>
             <Link href="/contact">לכל אפשרויות הקשר <ArrowUpLeft aria-hidden="true" size={16} /></Link>
           </div>
