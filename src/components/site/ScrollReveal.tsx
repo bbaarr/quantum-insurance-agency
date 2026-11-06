@@ -28,18 +28,21 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
         );
 
         sections.forEach((section) => {
+          const content = section.querySelector<HTMLElement>(".content-shell") ?? section;
+
           gsap.fromTo(
-            section,
-            { autoAlpha: 0, y: 18 },
+            content,
+            { autoAlpha: 0, y: 48 },
             {
               autoAlpha: 1,
               y: 0,
-              duration: 0.65,
-              ease: "power2.out",
+              duration: 1,
+              ease: "none",
               scrollTrigger: {
-                trigger: section,
-                start: "top 86%",
-                once: true,
+                trigger: content,
+                start: "top 92%",
+                end: "top 56%",
+                scrub: 0.6,
               },
             },
           );
