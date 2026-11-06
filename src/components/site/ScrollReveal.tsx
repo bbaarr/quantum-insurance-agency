@@ -16,40 +16,32 @@ interface ScrollRevealProps {
 
 /** Groups whose children enter one after another. */
 const STAGGER_GROUPS = [
-  ".statement-inner",
-  ".service-card-grid",
-  ".process-list",
+  ".service-index",
+  ".approach-steps",
   ".faq-list",
-  ".review-list",
-  ".related-links",
-  ".contact-methods",
+  ".point-list",
+  ".contact-details",
 ];
 
 /** Single elements that rise into place as their section arrives. */
 const SINGLE_REVEALS = [
-  ".eyebrow",
+  ".kicker",
   "h2",
-  ".section-heading > p",
-  ".section-aside > p",
-  ".process-intro > p",
-  ".contact-banner p",
-  ".contact-banner-link",
-  ".related-heading > a",
-  ".next-step-callout",
-  ".text-link",
-  ".contact-form-heading > p",
-  ".contact-form-column form",
-  ".location-band-inner > *",
+  ".section-header > p",
+  ".prose > p",
+  ".closing-inner > *",
+  ".cta-band-inner > *",
 ];
 
 const HERO_SEQUENCE = [
-  ".breadcrumb-line",
-  ".eyebrow",
+  ".breadcrumb",
+  ".kicker",
   "h1",
-  ".home-hero-summary",
-  ".page-hero-summary",
+  ".lead",
   ".hero-actions",
-  ".page-hero-copy > .primary-link",
+  ".page-hero-inner > .button",
+  ".contact-details",
+  ".contact-form-card",
 ];
 
 const EASE = "expo.out";
@@ -93,26 +85,16 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
             delay: 0.05,
           });
 
-          const heroPanel = hero.querySelectorAll(".hero-index, .page-hero-mark");
-          gsap.from(heroPanel, {
+          gsap.from(hero.querySelectorAll(".brand-motif"), {
             autoAlpha: 0,
-            y: 50,
-            scale: 0.97,
-            duration: 1.6,
+            scale: 0.94,
+            duration: 1.8,
             ease: EASE,
-            delay: 0.25,
-          });
-          gsap.from(hero.querySelectorAll(".hero-index-row"), {
-            autoAlpha: 0,
-            x: -18,
-            duration: 1,
-            ease: EASE,
-            stagger: 0.08,
-            delay: 0.55,
+            delay: 0.2,
           });
 
           // Hero copy drifts and fades gently as it scrolls away.
-          gsap.to(hero.querySelectorAll(".home-hero-copy, .page-hero-copy"), {
+          gsap.to(hero.querySelectorAll(".home-hero-inner, .page-hero-inner"), {
             yPercent: -12,
             autoAlpha: 0.35,
             ease: "none",
@@ -122,7 +104,7 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
 
         // Decorative logo marks move slower than the page for depth.
         gsap.utils
-          .toArray<HTMLElement>(".hero-watermark, .page-hero-mark, [data-parallax]", root)
+          .toArray<HTMLElement>("[data-parallax]", root)
           .forEach((element) => {
             const speed = Number(element.dataset.parallax ?? 18);
             gsap.to(element, {

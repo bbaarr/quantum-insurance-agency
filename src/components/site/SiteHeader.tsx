@@ -1,38 +1,23 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpLeft } from "lucide-react";
-
-const navigation = [
-  { href: "/#services", label: "השירותים שלנו" },
-  { href: "/#process", label: "איך מתקדמים" },
-  { href: "/#questions", label: "שאלות נפוצות" },
-];
+import QuantumLogo from "@/components/brand/QuantumLogo";
+import { servicePages } from "@/lib/site-content";
 
 export default function SiteHeader() {
   return (
     <header className="site-header">
       <div className="site-header-inner">
-        <Link className="brand-plaque" href="/" aria-label="קוואנטום — לעמוד הבית">
-          <Image
-            alt="קוואנטום — ביטוח, פנסיה, פיננסים"
-            className="brand-logo"
-            height={402}
-            priority
-            sizes="156px"
-            src="/quantum-logo.png"
-            width={618}
-          />
+        <Link aria-label="קוואנטום — לעמוד הבית" className="header-logo" href="/">
+          <QuantumLogo layout="inline" tone="dark" />
         </Link>
 
         <nav aria-label="ניווט ראשי" className="primary-navigation">
-          {navigation.map((item) => (
-            <Link href={item.href} key={item.href}>{item.label}</Link>
+          {servicePages.map((service) => (
+            <Link href={`/services/${service.slug}`} key={service.slug}>{service.navTitle}</Link>
           ))}
         </nav>
 
-        <Link className="header-contact" href="/contact">
-          <span>נדבר?</span>
-          <ArrowUpLeft aria-hidden="true" size={17} strokeWidth={1.8} />
+        <Link className="button button-ink header-cta" href="/contact">
+          לתיאום פגישה
         </Link>
       </div>
       <span aria-hidden="true" className="scroll-progress" />
