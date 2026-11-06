@@ -12,7 +12,8 @@
   --brand-paper: oklch(0.985 0.002 250);
   --brand-mist: oklch(0.955 0.004 250);
   --brand-silver: oklch(0.8 0.008 250);
-  --brand-grey: oklch(0.5 0.01 260);
+  /* 0.45 keeps grey text above 4.5:1 on paper and mist (IS 5568 / WCAG 1.4.3). */
+  --brand-grey: oklch(0.45 0.01 260);
   --brand-grey-on-ink: oklch(0.74 0.008 260);
   --brand-line: oklch(0.89 0.005 250);
   --brand-line-on-ink: oklch(0.32 0.006 310);
@@ -83,6 +84,20 @@
 .contents-panel :where(a, button):focus-visible {
   outline: 2px solid var(--brand-indigo);
   outline-offset: 3px;
+}
+
+/* On charcoal surfaces the indigo ring is hard to see, so focus turns sky blue. */
+.quantum-site :where(.section-ink, .cta-band, .closing-statement, .site-footer, .scroll-story)
+  :where(a, button, summary):focus-visible,
+.quantum-site .floating-whatsapp:focus-visible,
+.contents-panel :where(.button-light):focus-visible {
+  outline: 3px solid var(--brand-sky);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--brand-ink);
+}
+
+.quantum-site main:focus {
+  outline: none;
 }
 
 .content-shell {
@@ -510,7 +525,7 @@
 }
 
 .service-row-number {
-  color: var(--brand-silver);
+  color: var(--brand-grey);
   font-size: 1.1rem;
   font-variant-numeric: tabular-nums;
   font-weight: 500;
@@ -575,7 +590,8 @@
 .approach-number {
   display: block;
   margin-bottom: 2.5rem;
-  background: var(--brand-gradient);
+  /* Lighter indigo end so the numbers stay above 3:1 on charcoal. */
+  background: linear-gradient(120deg, var(--brand-sky), oklch(0.72 0.12 258));
   background-clip: text;
   color: transparent;
   font-size: 2.75rem;
@@ -1011,8 +1027,8 @@
 
 .quantum-site .enquiry-control:focus-visible {
   border-color: var(--brand-indigo);
-  outline: none;
-  box-shadow: 0 0 0 3px oklch(0.56 0.15 264 / 18%);
+  outline: 2px solid var(--brand-indigo);
+  outline-offset: 1px;
 }
 
 .enquiry-message {
@@ -1139,6 +1155,16 @@
 
 .footer-base p:last-child {
   max-width: 44rem;
+}
+
+.footer-legal a {
+  color: var(--brand-paper);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.footer-legal a:hover {
+  color: var(--brand-sky);
 }
 
 /* WhatsApp shortcut */
@@ -1535,3 +1561,36 @@ html.lenis body {
 }
 
 
+
+/* Accessibility statement */
+
+.statement {
+  display: grid;
+  max-width: 48rem;
+  gap: 1.1rem;
+}
+
+.statement h2 {
+  margin-top: 2rem;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+}
+
+.statement-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.quantum-site .statement-list {
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.statement-contact {
+  margin-block: 0.5rem;
+}
+
+.statement-updated {
+  margin-top: 1.5rem;
+  color: var(--brand-grey);
+  font-size: 0.95rem;
+}

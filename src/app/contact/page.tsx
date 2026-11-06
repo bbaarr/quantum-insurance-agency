@@ -61,8 +61,9 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               <li>
                 <a className="contact-method" href={whatsappHref} rel="noopener noreferrer" target="_blank">
                   <span className="contact-method-icon"><MessageCircle aria-hidden="true" size={19} strokeWidth={1.7} /></span>
-                  <span className="contact-method-label">WhatsApp</span>
+                  <span className="contact-method-label" lang="en">WhatsApp</span>
                   <bdi className="contact-method-value" dir="ltr">{whatsappDisplay}</bdi>
+                  <span className="sr-only"> (נפתח בחלון חדש)</span>
                 </a>
               </li>
               <li className="contact-method-wide">

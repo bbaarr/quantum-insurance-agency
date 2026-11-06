@@ -342,6 +342,7 @@ export const siteRoutes = [
     label: service.navTitle,
   })),
   { href: "/contact", label: "יצירת קשר" },
+  { href: "/accessibility", label: "הצהרת נגישות" },
 ];
 
 export const homeSections = [
@@ -357,6 +358,28 @@ export const serviceSections = [
   { id: "questions", label: "שאלות ותשובות" },
   { id: "next-step", label: "תיאום פגישה" },
 ];
+
+export const accessibilitySections = [
+  { id: "accessibility-level", label: "רמת הנגישות" },
+  { id: "accessibility-features", label: "מה הונגש" },
+  { id: "accessibility-limits", label: "מגבלות ידועות" },
+  { id: "accessibility-contact", label: "פנייה לרכז הנגישות" },
+];
+
+/**
+ * Accessibility statement details required by the Equal Rights for Persons with
+ * Disabilities regulations (2013), section 35. Fields in square brackets are
+ * placeholders that Quantum must fill in before the site goes live.
+ */
+export const accessibilityStatement = {
+  updated: "6 בנובמבר 2026",
+  coordinatorName: "[שם רכז/ת הנגישות]",
+  coordinatorPhone: officePhone,
+  coordinatorPhoneHref: officePhoneHref,
+  coordinatorEmail: contactEmail,
+  officeAccessibility:
+    "[פירוט הסדרי הנגישות במשרד: חניית נכים, כניסה ומעלית נגישות, שירותים נגישים וכו׳. יש להשלים לאחר בדיקה במשרד.]",
+};
 
 export const contactSections = [
   { id: "contact-methods", label: "פרטי קשר" },

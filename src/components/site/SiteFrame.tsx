@@ -17,18 +17,20 @@ export default function SiteFrame({ children, sections }: SiteFrameProps) {
       <QuantumMarkDefs />
       <a className="skip-link" href="#main-content">דילוג לתוכן הראשי</a>
       <SiteHeader sections={sections} />
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <ScrollReveal>{children}</ScrollReveal>
       </main>
-      <a
-        aria-label="שליחת הודעה לקוואנטום ב־WhatsApp"
-        className="floating-whatsapp"
-        href={whatsappHref}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <MessageCircle aria-hidden="true" size={22} strokeWidth={1.7} />
-      </a>
+      <aside aria-label="פנייה מהירה">
+        <a
+          aria-label="שליחת הודעה לקוואנטום ב־WhatsApp (נפתח בחלון חדש)"
+          className="floating-whatsapp"
+          href={whatsappHref}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <MessageCircle aria-hidden="true" size={22} strokeWidth={1.7} />
+        </a>
+      </aside>
       <SiteFooter />
     </div>
   );

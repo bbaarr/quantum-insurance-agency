@@ -125,7 +125,13 @@ export default function ScrollStory() {
   return (
     <section aria-label="מכל החלקים לתמונה אחת" className="scroll-story" ref={rootRef}>
       <div className="story-stage">
-        <div className="story-canvas">
+        {/* The animated scene is visual only; this is the same story for screen readers. */}
+        <div className="sr-only">
+          <p>חיסכון והשקעות, פנסיה, פרישה, ביטוח חיים ובריאות, רכוש ועסק.</p>
+          {captions.map((caption) => <p key={caption.kicker}>{caption.text}</p>)}
+          <p>כל התמונה. במקום אחד. חיסכון, פנסיה, פרישה וביטוח, בראייה אחת מסודרת.</p>
+        </div>
+        <div aria-hidden="true" className="story-canvas">
           <span aria-hidden="true" className="story-glow" />
           <svg aria-hidden="true" className="story-symbol" focusable="false" viewBox="0 0 100 100">
             <defs>
@@ -160,7 +166,7 @@ export default function ScrollStory() {
           ))}
         </div>
 
-        <div className="story-captions">
+        <div aria-hidden="true" className="story-captions">
           {captions.map((caption, index) => (
             <p className={`story-caption story-caption-${index}`} key={caption.kicker}>
               <span>{caption.kicker}</span>

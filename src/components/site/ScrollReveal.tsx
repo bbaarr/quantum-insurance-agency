@@ -48,6 +48,12 @@ const HERO_SEQUENCE = [
 
 const EASE = "expo.out";
 
+/*
+  Reveals animate opacity only, never visibility: content waiting to be revealed
+  must stay in the accessibility tree so screen readers can reach every heading
+  and link (IS 5568 / WCAG 1.3.1, 2.4.3).
+*/
+
 export default function ScrollReveal({ children }: ScrollRevealProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -86,7 +92,7 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
             gsap.utils.toArray<HTMLElement>(hero.querySelectorAll(selector)),
           );
           gsap.from(heroItems, {
-            autoAlpha: 0,
+            opacity: 0,
             y: 34,
             duration: 1.3,
             ease: EASE,
@@ -95,7 +101,7 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
           });
 
           gsap.from(hero.querySelectorAll(".brand-motif"), {
-            autoAlpha: 0,
+            opacity: 0,
             scale: 0.94,
             duration: 1.8,
             ease: EASE,
@@ -105,7 +111,7 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
           // Hero copy drifts and fades gently as it scrolls away.
           gsap.to(hero.querySelectorAll(".home-hero-inner, .page-hero-inner"), {
             yPercent: -12,
-            autoAlpha: 0.35,
+            opacity: 0.35,
             ease: "none",
             scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
           });
@@ -159,7 +165,7 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
           });
 
         const revealTargets = [...singles, ...groupItems];
-        gsap.set(revealTargets, { autoAlpha: 0, y: 40 });
+        gsap.set(revealTargets, { opacity: 0, y: 40 });
 
         ScrollTrigger.batch(revealTargets, {
           start: "top 90%",
@@ -168,7 +174,7 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
           batchMax: 8,
           onEnter: (batch) =>
             gsap.to(batch, {
-              autoAlpha: 1,
+              opacity: 1,
               y: 0,
               duration: 1.25,
               ease: EASE,
@@ -191,9 +197,18 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
           );
         }
 
+        // A keyboard user can land on content before it has scrolled in: show it at once.
+        const revealOnFocus = (event: FocusEvent) => {
+          const target = event.target as HTMLElement;
+          const pending = revealTargets.filter((element) => element.contains(target));
+          if (pending.length) gsap.to(pending, { opacity: 1, y: 0, duration: 0.2, overwrite: true });
+        };
+        root.addEventListener("focusin", revealOnFocus);
+
         ScrollTrigger.refresh();
 
         return () => {
+          root.removeEventListener("focusin", revealOnFocus);
           gsap.ticker.remove(raf);
           lenis.destroy();
         };

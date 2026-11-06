@@ -28,7 +28,7 @@ export default function FloatingContents({ sections }: FloatingContentsProps) {
         <Menu aria-hidden="true" size={20} strokeWidth={1.7} />
         <span className="sr-only">תפריט</span>
       </SheetTrigger>
-      <SheetContent className="contents-panel" dir="rtl" side="right">
+      <SheetContent className="contents-panel" closeLabel="סגירת התפריט" dir="rtl" side="right">
         <SheetHeader className="contents-header">
           <SheetTitle className="contents-title">תפריט</SheetTitle>
           <SheetDescription className="contents-description">

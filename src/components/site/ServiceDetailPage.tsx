@@ -42,7 +42,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           <nav aria-label="מיקום בעמוד" className="breadcrumb">
             <Link href="/">עמוד הבית</Link>
             <span aria-hidden="true">/</span>
-            <span>{service.navTitle}</span>
+            <span aria-current="page">{service.navTitle}</span>
           </nav>
           <h1>{service.title}</h1>
           <p className="lead">{lead}</p>
