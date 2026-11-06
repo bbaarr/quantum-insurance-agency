@@ -14,6 +14,7 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { genericOAuth, magicLink } from "better-auth/plugins";
+import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 
 import { db } from "@/db";
@@ -49,6 +50,22 @@ const authHosts = (process.env.IMAGINE_AUTH_HOSTS ?? "")
   .filter(Boolean);
 
 const staticBaseURL = process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_SITE_URL;
+
+/** Escape a value before putting it inside an HTML attribute in an email body. */
+function escapeAttr(value: string): string {
+  return value.replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] ?? c,
+  );
+}
+
+/**
+ * Public sign-up is OFF. This is a marketing site with no customer accounts: no page
+ * links to sign-up or sign-in. Leaving it on meant anyone could POST to
+ * /api/auth/sign-up/email or /sign-in/magic-link with any address, create accounts in
+ * this database and make the app send email to strangers from its sender. Set
+ * `IMAGINE_ALLOW_SIGNUP=true` once the site really needs customer accounts.
+ */
+const signUpDisabled = process.env.IMAGINE_ALLOW_SIGNUP !== "true";
 
 /**
  * Make the session cookie usable when this app is shown inside an iframe.
@@ -169,12 +186,28 @@ export const auth = betterAuth({
   // returning user is not asked to sign in again, short enough that a stolen
   // cookie is not indefinite.
   session: { expiresIn: 60 * 60 * 24 * 7, updateAge: 60 * 60 * 24 },
+  // Rate limiting is on in every environment (Better Auth only enables it in
+  // production by default), with tight limits on the endpoints that send email or
+  // accept a password, so they cannot be used to spam inboxes or guess passwords.
+  rateLimit: {
+    enabled: true,
+    window: 60,
+    max: 60,
+    customRules: {
+      "/sign-in/email": { window: 60, max: 5 },
+      "/sign-up/email": { window: 60, max: 3 },
+      "/sign-in/magic-link": { window: 60, max: 3 },
+      "/request-password-reset": { window: 60, max: 3 },
+      "/send-verification-email": { window: 60, max: 3 },
+    },
+  },
   emailAndPassword: {
     enabled: true,
     // 8 is the floor, not the recommendation. Raising it is fine; lowering it is
     // not — this is the only thing standing between a guessed password and a real
     // person's data.
     minPasswordLength: 8,
+    disableSignUp: signUpDisabled,
     sendResetPassword: async ({ user, url }) => {
       // MUST throw on failure: the user is staring at "check your email".
       await sendEmailOrThrow({
@@ -182,7 +215,7 @@ export const auth = betterAuth({
         subject: "Reset your password",
         html: `<p>Hello,</p>
 <p>Use the link below to choose a new password. It expires in one hour.</p>
-<p><a href="${url}">Reset your password</a></p>
+<p><a href="${escapeAttr(url)}">Reset your password</a></p>
 <p>If you didn't ask for this, you can safely ignore this email — nothing has changed.</p>`,
       });
     },
@@ -202,7 +235,7 @@ export const auth = betterAuth({
         subject: "Confirm your email address",
         html: `<p>Hello,</p>
 <p>Confirm this address to finish setting up your account.</p>
-<p><a href="${url}">Confirm my email</a></p>
+<p><a href="${escapeAttr(url)}">Confirm my email</a></p>
 <p>If you didn't create an account, you can safely ignore this email.</p>`,
       });
       if (!sent) {
@@ -221,7 +254,18 @@ export const auth = betterAuth({
   // emailAndPassword.requireEmailVerification — see Better Auth docs.
   plugins: [
     magicLink({
+      disableSignUp: signUpDisabled,
       sendMagicLink: async ({ email, url }) => {
+        // With sign-up off, better-auth still SENDS the link to an unknown address
+        // (it only refuses at the callback). Don't: that is free email to strangers.
+        // Return quietly so the response doesn't reveal whether an account exists.
+        if (signUpDisabled) {
+          const existing = await db.query.user.findFirst({
+            where: eq(schema.user.email, email.toLowerCase()),
+            columns: { id: true },
+          });
+          if (!existing) return;
+        }
         // MUST throw: this link is the only way in. Reporting success without
         // sending it is indistinguishable from broken sign-in.
         await sendEmailOrThrow({
@@ -229,14 +273,14 @@ export const auth = betterAuth({
           subject: "Your sign-in link",
           html: `<p>Hello,</p>
 <p>Use the link below to sign in. It expires shortly and can only be used once.</p>
-<p><a href="${url}">Sign in</a></p>
+<p><a href="${escapeAttr(url)}">Sign in</a></p>
 <p>If you didn't ask for this, you can safely ignore this email.</p>`,
         });
       },
     }),
     // Google sign-in via the platform relay. Added only when configured, so an app
     // on a deployment without it behaves exactly as before. The provider id
-    // "imagine" is what the browser calls: `signIn.oauth2({ providerId: "imagine" })`
+    // "imagine" is what the browser calls: `signIn.social({ provider: "imagine" })`
     // (wrapped as `signInWithGoogle()` in auth-client). Google identities land in
     // the existing `account` table — no schema change, one account per email.
     ...(googleSignInEnabled
@@ -254,6 +298,7 @@ export const auth = betterAuth({
                 // The relay authenticates the exchange with the per-app client
                 // secret; PKCE would add a code-verifier round-trip it does not use.
                 pkce: false,
+                disableSignUp: signUpDisabled,
                 mapProfileToUser: (profile) => ({
                   email: profile.email,
                   name: profile.name,

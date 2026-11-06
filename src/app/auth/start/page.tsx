@@ -16,16 +16,20 @@
 import { useEffect } from "react";
 
 import { authClient } from "@/lib/auth-client";
+import { safeAfterPath } from "@/lib/safe-redirect";
 
 export default function AuthStart() {
   useEffect(() => {
-    const after = new URLSearchParams(window.location.search).get("after") || "/";
+    const after = safeAfterPath(
+      new URLSearchParams(window.location.search).get("after"),
+      window.location.origin,
+    );
     // Default (redirect) mode: sets the state cookie first-party and navigates
     // this popup to Google. On return it lands on /auth/complete, which signals
     // the opener and closes.
     const complete = `${window.location.origin}/auth/complete?after=${encodeURIComponent(after)}`;
-    void authClient.signIn.oauth2({
-      providerId: "imagine",
+    void authClient.signIn.social({
+      provider: "imagine",
       callbackURL: complete,
       // Send FAILURES back to our own page too. Without this they land on Better
       // Auth's built-in error page, which lives outside this app: the popup would
