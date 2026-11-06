@@ -51,8 +51,8 @@ export default function EnquiryEmailForm({ defaultService }: EnquiryEmailFormPro
           ? document.querySelector<HTMLElement>('[aria-labelledby="enquiry-consent-label"]')
           : document.getElementById(id);
       target?.focus();
-    } else if (state.status === "error") {
-      // A send failure isn't about one field: move focus to the message itself.
+    } else if (state.status === "error" || state.status === "success") {
+      // A send result isn't about one field (and success remounts the form): move focus to the message.
       document.getElementById("enquiry-status")?.focus();
     }
   }, [state]);
