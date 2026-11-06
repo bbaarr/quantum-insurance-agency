@@ -2132,3 +2132,130 @@ html.lenis body {
     display: none;
   }
 }
+
+
+/* Quantum Q mark, used across the site */
+.quantum-mark-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.quantum-mark {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.home-hero .hero-watermark {
+  opacity: 0.11;
+}
+
+/* Eyebrows and the statement band carry a miniature Q */
+.quantum-site .eyebrow-mark,
+.statement-inner > span {
+  position: relative;
+  display: inline-block;
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: 0 0 auto;
+  border: 2.5px solid oklch(0.72 0.012 245);
+  border-radius: 50%;
+  background: none;
+}
+
+.quantum-site .eyebrow-mark::after,
+.statement-inner > span::after {
+  position: absolute;
+  right: -3px;
+  bottom: -5px;
+  width: 3px;
+  height: 7px;
+  transform: rotate(-32deg);
+  background: var(--brand-gradient);
+  content: "";
+}
+
+.statement-inner > span {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.hero-index-signature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.signature-mark {
+  width: 1.05rem;
+}
+
+.contact-banner::after {
+  display: none;
+}
+
+.contact-banner-mark {
+  position: absolute;
+  top: -4rem;
+  left: -3rem;
+  width: clamp(15rem, 30vw, 26rem);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.quantum-site .site-footer {
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-watermark {
+  position: absolute;
+  bottom: -9rem;
+  left: -5rem;
+  width: clamp(18rem, 34vw, 30rem);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.site-footer-main,
+.site-footer-legal {
+  position: relative;
+  z-index: 1;
+}
+
+.quantum-site .footer-brand-column > .footer-tagline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  color: var(--brand-silver);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.inline-mark {
+  width: 1rem;
+}
+
+.brand-plaque {
+  transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out);
+}
+
+.brand-plaque:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px oklch(0.05 0.01 250 / 35%);
+}
+
+@media (max-width: 760px) {
+  .contact-banner-mark {
+    top: auto;
+    bottom: -5rem;
+    left: -5rem;
+    width: 15rem;
+  }
+}

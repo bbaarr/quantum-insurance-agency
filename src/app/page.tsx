@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowDownLeft, ArrowUpLeft, ChevronLeft } from "lucide-react";
+import QuantumMark from "@/components/brand/QuantumMark";
 import ScrollStory from "@/components/site/ScrollStory";
 import SiteFrame from "@/components/site/SiteFrame";
 import { homeFaq, homeSections, servicePages } from "@/lib/site-content";
@@ -40,8 +41,7 @@ export default function Home() {
     <SiteFrame sections={homeSections}>
       <section className="home-hero" id="home">
         <div aria-hidden="true" className="hero-watermark">
-          <span className="watermark-orbit" />
-          <span className="watermark-slash" />
+          <QuantumMark />
         </div>
         <div className="content-shell home-hero-inner">
           <div className="home-hero-copy">
@@ -68,7 +68,10 @@ export default function Home() {
                 <ChevronLeft aria-hidden="true" size={15} />
               </div>
             ))}
-            <span className="hero-index-signature">Q / QUANTUM</span>
+            <span className="hero-index-signature">
+              <QuantumMark className="signature-mark" tone="light" />
+              QUANTUM
+            </span>
           </div>
         </div>
         <div className="hero-bottom-rule" aria-hidden="true">
@@ -160,6 +163,7 @@ export default function Home() {
       </section>
 
       <section className="contact-banner" id="contact">
+        <QuantumMark className="contact-banner-mark" data-parallax="14" tone="light" />
         <div className="content-shell contact-banner-inner">
           <div>
             <p className="eyebrow"><span className="eyebrow-mark" /> הצעד הבא</p>

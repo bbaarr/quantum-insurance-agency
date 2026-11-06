@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowDownLeft, ArrowUpLeft, Check, ChevronLeft } from "lucide-react";
+import QuantumMark from "@/components/brand/QuantumMark";
 import SiteFrame from "@/components/site/SiteFrame";
 import { servicePages, serviceSections, type ServicePageContent } from "@/lib/site-content";
 
@@ -29,8 +30,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             </Link>
           </div>
           <div aria-hidden="true" className="page-hero-mark service-page-mark">
-            <span className="mark-orbit" />
-            <span className="mark-slash" />
+            <QuantumMark />
             <span className="mark-caption">Q / {String(currentIndex + 1).padStart(2, "0")}</span>
           </div>
         </div>

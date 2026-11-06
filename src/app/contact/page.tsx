@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowUpLeft, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import EnquiryEmailForm from "@/components/contact/EnquiryEmailForm";
+import QuantumMark from "@/components/brand/QuantumMark";
 import SiteFrame from "@/components/site/SiteFrame";
 import {
   contactEmail,
@@ -38,8 +39,7 @@ export default function ContactPage() {
             </p>
           </div>
           <div aria-hidden="true" className="page-hero-mark contact-page-mark">
-            <span className="mark-orbit" />
-            <span className="mark-slash" />
+            <QuantumMark />
             <span className="mark-caption">Q / CONTACT</span>
           </div>
         </div>
