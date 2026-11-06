@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { QuantumMarkDefs } from "@/components/brand/QuantumMark";
 import FloatingContents from "@/components/site/FloatingContents";
 import ScrollReveal from "@/components/site/ScrollReveal";
 import SiteFooter from "@/components/site/SiteFooter";
@@ -14,6 +15,7 @@ interface SiteFrameProps {
 export default function SiteFrame({ children, sections }: SiteFrameProps) {
   return (
     <div className="quantum-site" dir="rtl" id="top">
+      <QuantumMarkDefs />
       <a className="skip-link" href="#main-content">דילוג לתוכן הראשי</a>
       <SiteHeader />
       <FloatingContents sections={sections} />

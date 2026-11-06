@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpLeft, Mail, MapPin, Phone } from "lucide-react";
+import QuantumMark from "@/components/brand/QuantumMark";
 import {
   companyName,
   contactEmail,
@@ -13,6 +14,7 @@ import {
 export default function SiteFooter() {
   return (
     <footer className="site-footer" id="site-footer">
+      <QuantumMark className="footer-watermark" data-parallax="10" tone="light" />
       <div className="site-footer-main">
         <div className="footer-brand-column">
           <Link className="brand-plaque footer-brand-plaque" href="/" aria-label="קוואנטום — לעמוד הבית">
@@ -26,6 +28,10 @@ export default function SiteFooter() {
             />
           </Link>
           <p>{companyName}</p>
+          <p className="footer-tagline">
+            <QuantumMark className="inline-mark" />
+            ביטוח. פנסיה. פיננסים.
+          </p>
         </div>
 
         <div className="footer-contact-column">
