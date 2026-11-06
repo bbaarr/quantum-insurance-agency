@@ -15,12 +15,14 @@
 "use client";
 
 import { createAuthClient } from "better-auth/react";
-import { genericOAuthClient, magicLinkClient } from "better-auth/client/plugins";
+import { magicLinkClient } from "better-auth/client/plugins";
 
 import { describeAuthError } from "@/lib/errors";
 
 export const authClient = createAuthClient({
-  plugins: [magicLinkClient(), genericOAuthClient()],
+  // Since better-auth 1.7 generic OAuth providers are ordinary social providers
+  // (`signIn.social({ provider: "imagine" })`) and need no client plugin.
+  plugins: [magicLinkClient()],
 });
 
 export const {

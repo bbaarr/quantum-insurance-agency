@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ListTree } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -25,19 +25,19 @@ export default function FloatingContents({ sections }: FloatingContentsProps) {
   return (
     <Sheet>
       <SheetTrigger render={<Button className="contents-trigger" variant="outline" />}>
-        <ListTree aria-hidden="true" size={17} strokeWidth={1.8} />
-        <span>תוכן עניינים</span>
+        <Menu aria-hidden="true" size={20} strokeWidth={1.7} />
+        <span className="sr-only">תפריט</span>
       </SheetTrigger>
       <SheetContent className="contents-panel" dir="rtl" side="right">
         <SheetHeader className="contents-header">
-          <SheetTitle className="contents-title">לנווט בקוואנטום</SheetTitle>
+          <SheetTitle className="contents-title">תפריט</SheetTitle>
           <SheetDescription className="contents-description">
             מעבר בין תחומי השירות, פרטי הקשר והנושאים שבעמוד.
           </SheetDescription>
         </SheetHeader>
 
         <nav aria-label="כל עמודי האתר" className="contents-navigation">
-          <p className="contents-label">עמודי האתר</p>
+          <p className="contents-label">עמודים</p>
           {siteRoutes.map((route) => (
             <SheetClose key={route.href} render={
               <Link
@@ -66,7 +66,7 @@ export default function FloatingContents({ sections }: FloatingContentsProps) {
         ) : null}
 
         <div className="contents-panel-footer">
-          <Link href="/contact">צרו קשר עם קוואנטום</Link>
+          <Link className="button button-light" href="/contact">לתיאום פגישה</Link>
         </div>
       </SheetContent>
     </Sheet>

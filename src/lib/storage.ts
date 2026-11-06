@@ -41,14 +41,15 @@ export type UploadTarget = {
   expiresIn: number;
 };
 
-/** File types storage accepts. Anything else is refused before a link is minted. */
+/** File types storage accepts. Anything else is refused before a link is minted.
+ *  SVG is deliberately absent: an SVG can carry script, so a user-uploaded one is a
+ *  stored-XSS vector wherever it is served. */
 export const ALLOWED_UPLOAD_TYPES = [
   "image/png",
   "image/jpeg",
   "image/webp",
   "image/gif",
   "image/avif",
-  "image/svg+xml",
   "application/pdf",
   "text/plain",
   "text/csv",

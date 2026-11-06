@@ -1,21 +1,45 @@
 "use server";
 
 import "server-only";
+import { headers } from "next/headers";
 import { sendEmail } from "@/lib/email";
+import { servicePages } from "@/lib/site-content";
+
+/**
+ * Per-IP throttle for the contact form, so it can't be used to flood the office
+ * inbox. In memory, so it is per server instance — enough to stop a script from
+ * one address; it is not a substitute for a shared store under heavy abuse.
+ */
+const ENQUIRY_WINDOW_MS = 10 * 60 * 1000;
+const ENQUIRY_MAX_PER_WINDOW = 5;
+const enquiryHits = new Map<string, number[]>();
+
+async function enquiryRateLimited(): Promise<boolean> {
+  const h = await headers();
+  const ip =
+    h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
+  const now = Date.now();
+  const recent = (enquiryHits.get(ip) ?? []).filter((t) => now - t < ENQUIRY_WINDOW_MS);
+  if (recent.length >= ENQUIRY_MAX_PER_WINDOW) {
+    enquiryHits.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  enquiryHits.set(ip, recent);
+  if (enquiryHits.size > 10_000) {
+    for (const [key, times] of enquiryHits) {
+      if (times.every((t) => now - t >= ENQUIRY_WINDOW_MS)) enquiryHits.delete(key);
+    }
+  }
+  return false;
+}
 
 interface EnquirySubmissionState {
   status: "idle" | "success" | "error";
   message: string;
 }
 
-const serviceOptions = [
-  "תכנון פיננסי",
-  "תכנון פנסיוני",
-  "תכנון פרישה",
-  "ביטוחי פרט",
-  "ביטוח רכוש ועסק",
-  "אחר",
-] as const;
+const serviceOptions = [...servicePages.map((service) => service.navTitle), "אחר"];
 
 function readText(formData: FormData, field: string): string {
   const value = formData.get(field);
@@ -80,6 +104,13 @@ export async function sendQuantumEnquiry(
     return {
       status: "error",
       message: "כדי שנוכל לחזור אליכם, יש לאשר יצירת קשר בנוגע לפנייה.",
+    };
+  }
+
+  if (await enquiryRateLimited()) {
+    return {
+      status: "error",
+      message: "נשלחו כמה פניות ברצף. אפשר לנסות שוב בעוד כמה דקות או ליצור קשר ישירות.",
     };
   }
 

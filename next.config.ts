@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 // X-Frame-Options ALLOWALL lets the platform embed the live preview in an iframe.
 // Keep this — removing it breaks the preview pane.
 const nextConfig: NextConfig = {
+  // Don't advertise the framework/version in every response.
+  poweredByHeader: false,
   // Google fetches /google<token>.html to verify this app's Search Console
   // property. The path is whatever Google issued, so it is read from the
   // environment rather than hardcoded, and no rewrite exists until one is.
@@ -29,7 +31,30 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/(.*)",
-        headers: [{ key: "X-Frame-Options", value: "ALLOWALL" }],
+        headers: [
+          { key: "X-Frame-Options", value: "ALLOWALL" },
+          // Stop browsers guessing content types (e.g. running an upload as script).
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          // Don't leak full URLs (with query strings) to other sites.
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          // The site never needs these browser features.
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+          },
+          // Always use HTTPS once a browser has seen the site over HTTPS.
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains",
+          },
+          // A narrow CSP that cannot break the page: no plugins, no <base> hijack,
+          // and forms may only post back to this site. (No frame-ancestors, because
+          // the platform preview has to frame the site.)
+          {
+            key: "Content-Security-Policy",
+            value: "base-uri 'self'; object-src 'none'; form-action 'self'",
+          },
+        ],
       },
     ];
   },

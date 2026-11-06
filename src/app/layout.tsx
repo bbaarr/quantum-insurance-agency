@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import "@fontsource-variable/heebo";
 import "./globals.css";
 import "./quantum-site.css";
 

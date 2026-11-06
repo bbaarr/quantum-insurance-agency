@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowDownLeft, ArrowUpLeft, ChevronLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import BrandMotif from "@/components/brand/BrandMotif";
+import QuantumLogo from "@/components/brand/QuantumLogo";
+import ScrollStory from "@/components/site/ScrollStory";
 import SiteFrame from "@/components/site/SiteFrame";
-import { homeFaq, homeSections, servicePages } from "@/lib/site-content";
+import { homeFaq, homeSections, officePhone, officePhoneHref, servicePages } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "קוואנטום | ביטוח, פנסיה ותכנון פיננסי",
   description:
-    "קוואנטום מציגה שירותי תכנון פיננסי למשפחה, תכנון פנסיוני ופרישה, ביטוחי פרט וביטוח רכוש ועסק. קראו על השירותים וצרו קשר.",
+    "קוואנטום סוכנות לביטוח: תכנון פיננסי לרווחת המשפחה, תכנון פנסיוני, תכנון פרישה, ביטוחי פרט וסיכונים וביטוח אלמנטרי.",
   openGraph: {
     title: "קוואנטום | ביטוח, פנסיה ותכנון פיננסי",
     description: "תכנון פיננסי, פנסיוני וביטוחי למשפחות ולעסקים.",
@@ -16,139 +19,84 @@ export const metadata: Metadata = {
   },
 };
 
-const processSteps = [
-  {
-    number: "01",
-    title: "מתחילים בהקשבה",
-    description: "ממפים מטרות, נתונים, תוכניות וכיסויים שכבר קיימים.",
-  },
-  {
-    number: "02",
-    title: "מבינים את האפשרויות",
-    description: "בוחנים פרטים, תנאים, דמי ניהול, גבולות ושאלות שכדאי לברר.",
-  },
-  {
-    number: "03",
-    title: "מתקדמים לפי הצורך",
-    description: "מגבשים תמונת מצב שאפשר לחזור ולבחון כשהנסיבות משתנות.",
-  },
-];
+/** "How we approach the process", from Quantum's financial planning copy. */
+const approach = servicePages[0].lists[0].items;
 
 export default function Home() {
   return (
     <SiteFrame sections={homeSections}>
       <section className="home-hero" id="home">
-        <div aria-hidden="true" className="hero-watermark">
-          <span className="watermark-orbit" />
-          <span className="watermark-slash" />
-        </div>
+        <BrandMotif className="hero-motif" data-parallax="8" surface="paper" />
         <div className="content-shell home-hero-inner">
-          <div className="home-hero-copy">
-            <p className="eyebrow"><span className="eyebrow-mark" /> ביטוח. פנסיה. פיננסים.</p>
-            <h1>רואים את כל התמונה.<br /><span>בוחרים את הצעד הבא.</span></h1>
-            <p className="home-hero-summary">
-              קוואנטום מלווה משפחות בבחינת מטרות, חסכונות, תוכניות פנסיוניות וכיסויים ביטוחיים — כדי להבין מה קיים ואילו אפשרויות כדאי לבדוק.
-            </p>
-            <div className="hero-actions">
-              <Link className="primary-link" href="/contact">
-                לשיחה עם קוואנטום <ArrowUpLeft aria-hidden="true" size={17} />
-              </Link>
-              <Link className="secondary-link" href="#services">
-                לכל השירותים <ArrowDownLeft aria-hidden="true" size={16} />
-              </Link>
-            </div>
+          <p className="kicker">קוואנטום סוכנות לביטוח</p>
+          <h1>רואים רחוק.<br />מתכננים נכון.</h1>
+          <p className="lead">
+            חיסכון, פנסיה, פרישה וביטוח הם חלקים של אותה תמונה. אנחנו עוזרים לכם לראות אותה במלואה, ומלווים אתכם ואת המשפחה לאורך שלבי החיים.
+          </p>
+          <div className="hero-actions">
+            <Link className="button button-ink" href="/contact">לתיאום פגישה</Link>
+            <a className="button button-quiet" href={`tel:${officePhoneHref}`}>
+              <bdi dir="ltr">{officePhone}</bdi>
+            </a>
           </div>
-          <div aria-label="תהליך בחינה בשלושה שלבים" className="hero-index" role="img">
-            <p className="hero-index-title">מבט רחב<br />מתחיל בשאלות הנכונות</p>
-            {processSteps.map((step) => (
-              <div className="hero-index-row" key={step.number}>
-                <span>{step.number}</span>
-                <strong>{step.title}</strong>
-                <ChevronLeft aria-hidden="true" size={15} />
-              </div>
-            ))}
-            <span className="hero-index-signature">Q / QUANTUM</span>
-          </div>
-        </div>
-        <div className="hero-bottom-rule" aria-hidden="true">
-          <span>קוואנטום סוכנות לביטוח</span>
-          <span>תכנון. בדיקה. בחירה.</span>
         </div>
       </section>
 
-      <section className="statement-band" aria-label="גישת קוואנטום">
-        <div className="content-shell statement-inner">
-          <p>להבין מה יש</p>
-          <span aria-hidden="true" />
-          <p>לבחון מה מתאים</p>
-          <span aria-hidden="true" />
-          <p>לפעול מתוך מידע</p>
-        </div>
-      </section>
+      <ScrollStory />
 
-      <section className="content-section services-section" id="services">
+      <section className="section" id="services">
         <div className="content-shell">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow"><span className="eyebrow-mark" /> תחומי השירות</p>
-              <h2>חמישה תחומים.<br /><span>תמונה אחת רחבה.</span></h2>
-            </div>
-            <p>
-              בוחנים את הנושאים הרלוונטיים למצבכם ולמטרות שהגדרתם. כל שירות עומד בפני עצמו ויכול להשתלב בתמונה המשפחתית הכוללת.
-            </p>
-          </div>
+          <header className="section-header">
+            <p className="kicker">תחומי השירות</p>
+            <h2>חמישה תחומים, תמונה אחת.</h2>
+          </header>
 
-          <div className="service-card-grid">
+          <ol className="service-index">
             {servicePages.map((service, index) => (
-              <Link className="service-card" href={`/services/${service.slug}`} key={service.slug}>
-                <div className="service-card-top">
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <ArrowUpLeft aria-hidden="true" size={20} strokeWidth={1.6} />
-                </div>
-                <h3>{service.title}</h3>
-                <p>{service.summary}</p>
-                <span className="service-card-cta">לקריאה על השירות <ChevronLeft aria-hidden="true" size={15} /></span>
-              </Link>
+              <li key={service.slug}>
+                <Link className="service-row" href={`/services/${service.slug}`}>
+                  <span className="service-row-number">{index + 1}</span>
+                  <span className="service-row-title">{service.title}</span>
+                  <span className="service-row-summary">{service.summary}</span>
+                  <ArrowLeft aria-hidden="true" className="service-row-arrow" size={22} strokeWidth={1.5} />
+                </Link>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <section className="process-section" id="process">
-        <div className="content-shell process-layout">
-          <div className="process-intro">
-            <p className="eyebrow"><span className="eyebrow-mark" /> איך מתקדמים</p>
-            <h2>קודם מבינים.<br /><span>אחר כך בוחרים.</span></h2>
+      <section className="section section-ink" id="approach">
+        <div className="content-shell approach-layout">
+          <header className="section-header">
+            <p className="kicker">איך אנחנו ניגשים לתהליך</p>
+            <h2>מתחילים בהקשבה.</h2>
             <p>
-              תהליך מסודר מתחיל בהקשבה ובהבנת התמונה הכלכלית. אין תוצאה אחת שמתאימה לכולם, ולכן בוחנים את הנתונים והאפשרויות לפי הנסיבות.
+              תכנון פיננסי הוא תהליך הוליסטי המתחיל בהקשבה ובהבנת התמונה הכלכלית הכוללת שלכם ושל המשפחה, ממשיך בבחינת חלופות ובגיבוש דרך פעולה המתאימה למטרות שלכם.
             </p>
-          </div>
-          <div className="process-list">
-            {processSteps.map((step) => (
-              <article className="process-row" key={step.number}>
-                <span className="process-number">{step.number}</span>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.description}</p>
-                </div>
-                <ChevronLeft aria-hidden="true" size={18} />
-              </article>
+          </header>
+          <ol className="approach-steps">
+            {approach.map((step, index) => (
+              <li key={step.label}>
+                <span className="approach-number">{index + 1}</span>
+                <h3>{step.label}</h3>
+                <p>{step.text}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <section className="faq-section" id="questions">
-        <div className="content-shell faq-layout">
-          <div className="section-aside">
-            <p className="eyebrow"><span className="eyebrow-mark" /> לפני שמתחילים</p>
-            <h2>שאלות<br /><span>נפוצות.</span></h2>
-            <p>תשובות ברורות על בדיקת תוכניות, ציפיות וכיסוי ביטוחי.</p>
-          </div>
+      <section className="section" id="questions">
+        <div className="content-shell split-layout">
+          <header className="section-header">
+            <p className="kicker">שאלות ותשובות</p>
+            <h2>לפני שנפגשים.</h2>
+          </header>
           <div className="faq-list">
             {homeFaq.map((item) => (
               <details className="faq-item" key={item.question}>
-                <summary>{item.question}<span aria-hidden="true" /></summary>
+                <summary>{item.question}</summary>
                 <p>{item.answer}</p>
               </details>
             ))}
@@ -156,16 +104,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="contact-banner" id="contact">
-        <div className="content-shell contact-banner-inner">
+      <section className="cta-band" id="contact">
+        <BrandMotif className="cta-motif" data-parallax="10" surface="ink" />
+        <div className="content-shell cta-band-inner">
+          <QuantumLogo className="cta-logo" layout="stacked" tone="light" />
           <div>
-            <p className="eyebrow"><span className="eyebrow-mark" /> הצעד הבא</p>
-            <h2>מה תרצו לבדוק?</h2>
-            <p>ספרו לנו על הנושא שמעסיק אתכם ונמשיך משם.</p>
+            <h2>נשמח להכיר.</h2>
+            <p>פגישת היכרות, ונבין יחד מה נכון לבדוק אצלכם.</p>
           </div>
-          <Link className="contact-banner-link" href="/contact">
-            לכל פרטי הקשר <ArrowUpLeft aria-hidden="true" size={18} />
-          </Link>
+          <Link className="button button-light" href="/contact">לתיאום פגישה</Link>
         </div>
       </section>
     </SiteFrame>

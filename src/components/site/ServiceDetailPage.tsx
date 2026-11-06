@@ -1,75 +1,93 @@
 import Link from "next/link";
-import { ArrowDownLeft, ArrowUpLeft, Check, ChevronLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import BrandMotif from "@/components/brand/BrandMotif";
+import QuantumMark from "@/components/brand/QuantumMark";
 import SiteFrame from "@/components/site/SiteFrame";
-import { servicePages, serviceSections, type ServicePageContent } from "@/lib/site-content";
+import { servicePages, serviceSections, type ServiceList, type ServicePageContent } from "@/lib/site-content";
 
 interface ServiceDetailPageProps {
   service: ServicePageContent;
 }
 
+function PointList({ list }: { list: ServiceList }) {
+  const ListTag = list.numbered ? "ol" : "ul";
+  return (
+    <div className="point-block">
+      <h2>{list.title}</h2>
+      <ListTag className={list.numbered ? "point-list point-list-numbered" : "point-list"}>
+        {list.items.map((item, index) => (
+          <li key={item.label ?? item.text}>
+            {list.numbered ? <span className="point-number">{index + 1}</span> : <span aria-hidden="true" className="point-tick" />}
+            <p>
+              {item.label ? <strong>{item.label}{item.text ? " – " : ""}</strong> : null}
+              {item.text}
+            </p>
+          </li>
+        ))}
+      </ListTag>
+    </div>
+  );
+}
+
 export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
-  const currentIndex = servicePages.findIndex((item) => item.slug === service.slug);
-  const relatedServices = servicePages.filter((item) => item.slug !== service.slug).slice(0, 3);
+  const [lead, ...moreIntro] = service.intro;
+  const otherServices = servicePages.filter((item) => item.slug !== service.slug);
+  const contactHref = `/contact?service=${service.slug}`;
 
   return (
     <SiteFrame sections={serviceSections}>
-      <section className="page-hero service-hero" id="overview">
-        <div className="content-shell page-hero-grid">
-          <div className="page-hero-copy">
-            <div className="breadcrumb-line">
-              <Link href="/">עמוד הבית</Link>
-              <ChevronLeft aria-hidden="true" size={15} />
-              <span>{service.navTitle}</span>
+      <section className="page-hero" id="overview">
+        <BrandMotif className="page-hero-motif" data-parallax="8" surface="paper" />
+        <div className="content-shell page-hero-inner">
+          <nav aria-label="מיקום בעמוד" className="breadcrumb">
+            <Link href="/">עמוד הבית</Link>
+            <span aria-hidden="true">/</span>
+            <span>{service.navTitle}</span>
+          </nav>
+          <h1>{service.title}</h1>
+          <p className="lead">{lead}</p>
+          <Link className="button button-ink" href={contactHref}>לתיאום פגישה</Link>
+        </div>
+      </section>
+
+      {moreIntro.length > 0 ? (
+        <section className="section section-tight">
+          <div className="content-shell prose-layout">
+            <QuantumMark className="prose-mark" />
+            <div className="prose">
+              {moreIntro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
-            <p className="eyebrow"><span className="eyebrow-mark" /> תחום שירות</p>
-            <h1>{service.title}</h1>
-            <p className="page-hero-summary">{service.intro}</p>
-            <Link className="primary-link" href="/contact">
-              לתיאום שיחה <ArrowUpLeft aria-hidden="true" size={17} />
-            </Link>
           </div>
-          <div aria-hidden="true" className="page-hero-mark service-page-mark">
-            <span className="mark-orbit" />
-            <span className="mark-slash" />
-            <span className="mark-caption">Q / {String(currentIndex + 1).padStart(2, "0")}</span>
-          </div>
+        </section>
+      ) : null}
+
+      <section className="section section-paper" id="details">
+        <div className="content-shell points-layout">
+          <PointList list={service.lists[0]} />
+          <PointList list={service.lists[1]} />
         </div>
       </section>
 
-      <section className="content-section" id="review">
-        <div className="content-shell service-content-grid">
-          <div className="section-aside">
-            <p className="eyebrow">סקירה לפי הצורך</p>
-            <h2>מה אפשר לבדוק יחד?</h2>
-            <p>
-              היקף הבדיקה נקבע לפי המידע שתשתפו, הנסיבות האישיות והנושאים שחשובים לכם.
-            </p>
+      <section className="closing-statement" id="next-step">
+        <div className="content-shell closing-inner">
+          <QuantumMark className="closing-mark" tone="light" />
+          <div>
+            {service.closing.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
-          <div className="review-list">
-            {service.reviewItems.map((item, index) => (
-              <article className="review-item" key={item}>
-                <span className="review-index">{String(index + 1).padStart(2, "0")}</span>
-                <p>{item}</p>
-                <Check aria-hidden="true" className="review-check" size={17} strokeWidth={1.7} />
-              </article>
-            ))}
-            <p className="review-disclaimer">
-              הסקירה מסייעת להבין נתונים ונושאים לבירור. היא אינה מבטיחה תשואה, הכנסה או כיסוי מסוים.
-            </p>
-          </div>
+          <Link className="button button-light" href={contactHref}>לתיאום פגישה</Link>
         </div>
       </section>
 
-      <section className="service-faq-section" id="questions">
-        <div className="content-shell service-faq-grid">
-          <div className="section-aside">
-            <p className="eyebrow">כדאי לדעת</p>
-            <h2>שאלות שעולות בדרך</h2>
-          </div>
+      <section className="section" id="questions">
+        <div className="content-shell split-layout">
+          <header className="section-header">
+            <p className="kicker">שאלות ותשובות</p>
+            <h2>{service.navTitle}: מה שואלים אותנו.</h2>
+          </header>
           <div className="faq-list">
             {service.faq.map((item) => (
               <details className="faq-item" key={item.question}>
-                <summary>{item.question}<span aria-hidden="true" /></summary>
+                <summary>{item.question}</summary>
                 <p>{item.answer}</p>
               </details>
             ))}
@@ -77,31 +95,23 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         </div>
       </section>
 
-      <section className="related-section" id="next-step">
+      <section className="section section-paper">
         <div className="content-shell">
-          <div className="related-heading">
-            <div>
-              <p className="eyebrow">המשך התמונה</p>
-              <h2>תחומים נוספים לבדיקה</h2>
-            </div>
-            <Link href="/contact">לכל אפשרויות הקשר <ArrowUpLeft aria-hidden="true" size={16} /></Link>
-          </div>
-          <div className="related-links">
-            {relatedServices.map((item, index) => (
-              <Link className="related-link" href={`/services/${item.slug}`} key={item.slug}>
-                <span className="related-index">{String(servicePages.findIndex((entry) => entry.slug === item.slug) + 1).padStart(2, "0")}</span>
-                <span className="related-title">{item.navTitle}</span>
-                <ArrowDownLeft aria-hidden="true" size={18} />
-              </Link>
+          <header className="section-header">
+            <p className="kicker">תחומים נוספים</p>
+            <h2>כל התחומים תחת קורת גג אחת.</h2>
+          </header>
+          <ul className="service-index service-index-compact">
+            {otherServices.map((item) => (
+              <li key={item.slug}>
+                <Link className="service-row" href={`/services/${item.slug}`}>
+                  <span className="service-row-title">{item.title}</span>
+                  <span className="service-row-summary">{item.summary}</span>
+                  <ArrowLeft aria-hidden="true" className="service-row-arrow" size={22} strokeWidth={1.5} />
+                </Link>
+              </li>
             ))}
-          </div>
-          <p className="next-step-callout">
-            {service.summary}
-          </p>
-          <Link className="text-link" href="/contact">
-            <span>נדבר על מה שרלוונטי לכם</span>
-            <ArrowUpLeft aria-hidden="true" size={17} />
-          </Link>
+          </ul>
         </div>
       </section>
     </SiteFrame>
