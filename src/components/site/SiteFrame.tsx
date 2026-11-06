@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { MessageCircle } from "lucide-react";
 import { QuantumMarkDefs } from "@/components/brand/QuantumMark";
-import FloatingContents from "@/components/site/FloatingContents";
 import ScrollReveal from "@/components/site/ScrollReveal";
 import SiteFooter from "@/components/site/SiteFooter";
 import SiteHeader from "@/components/site/SiteHeader";
@@ -17,8 +16,7 @@ export default function SiteFrame({ children, sections }: SiteFrameProps) {
     <div className="quantum-site" dir="rtl" id="top">
       <QuantumMarkDefs />
       <a className="skip-link" href="#main-content">דילוג לתוכן הראשי</a>
-      <SiteHeader />
-      <FloatingContents sections={sections} />
+      <SiteHeader sections={sections} />
       <main id="main-content">
         <ScrollReveal>{children}</ScrollReveal>
       </main>

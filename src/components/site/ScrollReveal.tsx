@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,7 +20,7 @@ const STAGGER_GROUPS = [
   ".approach-steps",
   ".faq-list",
   ".point-list",
-  ".contact-details",
+  ".contact-methods",
 ];
 
 /** Single elements that rise into place as their section arrives. */
@@ -30,7 +30,8 @@ const SINGLE_REVEALS = [
   ".section-header > p",
   ".prose > p",
   ".closing-inner > *",
-  ".cta-band-inner > *",
+  ".cta-copy > *",
+  ".cta-brand",
 ];
 
 const HERO_SEQUENCE = [
@@ -40,7 +41,8 @@ const HERO_SEQUENCE = [
   ".lead",
   ".hero-actions",
   ".page-hero-inner > .button",
-  ".contact-details",
+  ".contact-methods",
+  ".contact-office",
   ".contact-form-card",
 ];
 
@@ -49,6 +51,13 @@ const EASE = "expo.out";
 export default function ScrollReveal({ children }: ScrollRevealProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+
+  // iOS Safari only applies :active (the buttons' pressed state) once a touch listener exists.
+  useEffect(() => {
+    const noop = () => {};
+    document.addEventListener("touchstart", noop, { passive: true });
+    return () => document.removeEventListener("touchstart", noop);
+  }, []);
 
   useGSAP(
     () => {
