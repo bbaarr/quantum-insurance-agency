@@ -105,14 +105,20 @@ export default function Home() {
       </section>
 
       <section className="cta-band" id="contact">
-        <BrandMotif className="cta-motif" data-parallax="10" surface="ink" />
         <div className="content-shell cta-band-inner">
-          <QuantumLogo className="cta-logo" layout="stacked" tone="light" />
-          <div>
+          <div className="cta-copy">
             <h2>נשמח להכיר.</h2>
             <p>פגישת היכרות, ונבין יחד מה נכון לבדוק אצלכם.</p>
+            <div className="cta-actions">
+              <Link className="button button-light" href="/contact">לתיאום פגישה</Link>
+              <a className="button button-outline-light" href={`tel:${officePhoneHref}`}>
+                <bdi dir="ltr">{officePhone}</bdi>
+              </a>
+            </div>
           </div>
-          <Link className="button button-light" href="/contact">לתיאום פגישה</Link>
+          <div className="cta-brand">
+            <QuantumLogo className="cta-logo" layout="stacked" tone="light" />
+          </div>
         </div>
       </section>
     </SiteFrame>

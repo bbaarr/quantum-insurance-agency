@@ -34,9 +34,13 @@ async function enquiryRateLimited(): Promise<boolean> {
   return false;
 }
 
+export type EnquiryField = "name" | "phone" | "email" | "service" | "message" | "consent";
+
 interface EnquirySubmissionState {
   status: "idle" | "success" | "error";
   message: string;
+  /** The field the error is about, so the form can mark it and move focus to it. */
+  field?: EnquiryField;
 }
 
 const serviceOptions = [...servicePages.map((service) => service.navTitle), "אחר"];
@@ -75,34 +79,38 @@ export async function sendQuantumEnquiry(
     };
   }
 
-  if (!name || name.length > 120 || !/^[0-9+().\s-]{7,30}$/.test(phone)) {
+  if (!name || name.length > 120) {
+    return { status: "error", field: "name", message: "שם מלא: נא למלא שם של עד 120 תווים." };
+  }
+
+  if (!/^[0-9+().\s-]{7,30}$/.test(phone)) {
     return {
       status: "error",
-      message: "נא לבדוק את השם ואת מספר הטלפון ולנסות שוב.",
+      field: "phone",
+      message: "טלפון: נא להזין מספר טלפון של 7 ספרות לפחות, לדוגמה 050-1234567.",
     };
   }
 
-  if (
-    email.length > 254 ||
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
-    message.length > 1000
-  ) {
+  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return {
       status: "error",
-      message: "נא לבדוק את כתובת הדוא״ל ואת אורך ההודעה ולנסות שוב.",
+      field: "email",
+      message: "כתובת דוא״ל: נא להזין כתובת תקינה, לדוגמה name@example.com.",
     };
+  }
+
+  if (message.length > 1000) {
+    return { status: "error", field: "message", message: "הודעה: אפשר לכתוב עד 1,000 תווים." };
   }
 
   if (service && !serviceOptions.some((option) => option === service)) {
-    return {
-      status: "error",
-      message: "נא לבחור תחום מהרשימה ולנסות שוב.",
-    };
+    return { status: "error", field: "service", message: "תחום: נא לבחור תחום מהרשימה." };
   }
 
   if (readText(formData, "consent") !== "yes") {
     return {
       status: "error",
+      field: "consent",
       message: "כדי שנוכל לחזור אליכם, יש לאשר יצירת קשר בנוגע לפנייה.",
     };
   }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,16 @@ interface FloatingContentsProps {
 
 export default function FloatingContents({ sections }: FloatingContentsProps) {
   const pathname = usePathname();
+  // After jumping to a section from the menu, focus lands on that section, not back on the menu button.
+  const sectionTarget = useRef<string | null>(null);
+  const finalFocus = () => {
+    const id = sectionTarget.current;
+    sectionTarget.current = null;
+    const target = id ? document.getElementById(id) : null;
+    if (!target) return true;
+    if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+    return target;
+  };
 
   return (
     <Sheet>
@@ -28,7 +39,7 @@ export default function FloatingContents({ sections }: FloatingContentsProps) {
         <Menu aria-hidden="true" size={20} strokeWidth={1.7} />
         <span className="sr-only">תפריט</span>
       </SheetTrigger>
-      <SheetContent className="contents-panel" dir="rtl" side="right">
+      <SheetContent className="contents-panel" closeLabel="סגירת התפריט" dir="rtl" finalFocus={finalFocus} side="right">
         <SheetHeader className="contents-header">
           <SheetTitle className="contents-title">תפריט</SheetTitle>
           <SheetDescription className="contents-description">
@@ -57,7 +68,11 @@ export default function FloatingContents({ sections }: FloatingContentsProps) {
             <p className="contents-label">בעמוד הזה</p>
             {sections.map((section) => (
               <SheetClose key={section.id} render={
-                <Link className="contents-link section-link" href={`${pathname}#${section.id}`} />
+                <Link
+                  className="contents-link section-link"
+                  href={`${pathname}#${section.id}`}
+                  onClick={() => { sectionTarget.current = section.id; }}
+                />
               }>
                 {section.label}
               </SheetClose>

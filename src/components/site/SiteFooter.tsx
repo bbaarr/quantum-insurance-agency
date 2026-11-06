@@ -33,7 +33,10 @@ export default function SiteFooter() {
           <p className="footer-label">דברו איתנו</p>
           <a href={`tel:${officePhoneHref}`}><bdi dir="ltr">{officePhone}</bdi></a>
           <a href={`mailto:${contactEmail}`}><bdi dir="ltr">{contactEmail}</bdi></a>
-          <a href={whatsappHref} rel="noopener noreferrer" target="_blank">WhatsApp <bdi dir="ltr">{whatsappDisplay}</bdi></a>
+          <a href={whatsappHref} rel="noopener noreferrer" target="_blank">
+            <span lang="en">WhatsApp</span> <bdi dir="ltr">{whatsappDisplay}</bdi>
+            <span className="sr-only"> (נפתח בחלון חדש)</span>
+          </a>
         </div>
 
         <div className="footer-column">
@@ -45,6 +48,9 @@ export default function SiteFooter() {
 
       <div className="content-shell footer-base">
         <p>{companyName}</p>
+        <nav aria-label="מידע משפטי ונגישות" className="footer-legal">
+          <Link href="/accessibility">הצהרת נגישות</Link>
+        </nav>
         <p>
           תכנון פיננסי והשקעות אינם מבטיחים תשואה או הכנסה עתידית. הכיסוי הביטוחי נקבע לפי תנאי הפוליסה שהונפקה, והוא כפוף לחיתום ולהוראות הדין.
         </p>

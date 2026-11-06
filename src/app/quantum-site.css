@@ -12,7 +12,8 @@
   --brand-paper: oklch(0.985 0.002 250);
   --brand-mist: oklch(0.955 0.004 250);
   --brand-silver: oklch(0.8 0.008 250);
-  --brand-grey: oklch(0.5 0.01 260);
+  /* 0.45 keeps grey text above 4.5:1 on paper and mist (IS 5568 / WCAG 1.4.3). */
+  --brand-grey: oklch(0.45 0.01 260);
   --brand-grey-on-ink: oklch(0.74 0.008 260);
   --brand-line: oklch(0.89 0.005 250);
   --brand-line-on-ink: oklch(0.32 0.006 310);
@@ -25,7 +26,8 @@
   --brand-night: var(--brand-ink);
   --brand-ice: var(--brand-sky);
 
-  --font-brand: var(--font-sans);
+  /* Heebo ships with the site (self-hosted woff2, font-display: swap); the fallbacks all carry Hebrew. */
+  --font-brand: "Heebo Variable", "Segoe UI", Arial, "Arial Hebrew", "Noto Sans Hebrew", sans-serif;
   --radius-control: 0.375rem;
 
   --background: var(--brand-paper);
@@ -82,6 +84,20 @@
 .contents-panel :where(a, button):focus-visible {
   outline: 2px solid var(--brand-indigo);
   outline-offset: 3px;
+}
+
+/* On charcoal surfaces the indigo ring is hard to see, so focus turns sky blue. */
+.quantum-site :where(.section-ink, .cta-band, .closing-statement, .site-footer, .scroll-story)
+  :where(a, button, summary):focus-visible,
+.quantum-site .floating-whatsapp:focus-visible,
+.contents-panel :where(.button-light):focus-visible {
+  outline: 3px solid var(--brand-sky);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--brand-ink);
+}
+
+.quantum-site main:focus {
+  outline: none;
 }
 
 .content-shell {
@@ -169,10 +185,36 @@
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.2;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
   transition:
     background-color 200ms var(--ease-out),
     border-color 200ms var(--ease-out),
-    color 200ms var(--ease-out);
+    color 200ms var(--ease-out),
+    transform 140ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
+}
+
+/* Pressed: every button and tappable row gives a small, quick response. */
+.quantum-site :is(.button, .enquiry-submit, .floating-whatsapp, .contents-trigger, .contact-method):active {
+  transform: scale(0.97);
+  transition-duration: 60ms;
+}
+
+.quantum-site :is(.service-row, .faq-item summary, .primary-navigation a, .footer-column a):active {
+  opacity: 0.7;
+}
+
+.quantum-site .button-outline-light {
+  border-color: oklch(0.985 0.002 250 / 35%);
+  background: transparent;
+  color: var(--brand-paper);
+}
+
+.quantum-site .button-outline-light:hover {
+  border-color: var(--brand-paper);
+  background: oklch(0.985 0.002 250 / 8%);
 }
 
 .quantum-site .button-ink {
@@ -182,6 +224,7 @@
 
 .quantum-site .button-ink:hover {
   background: var(--brand-ink-raised);
+  box-shadow: 0 8px 20px -10px oklch(0.19 0.006 310 / 60%);
 }
 
 .quantum-site .button-light {
@@ -210,33 +253,48 @@
   z-index: 40;
   top: 0;
   border-bottom: 1px solid var(--brand-line);
-  background: oklch(0.985 0.002 250 / 88%);
-  backdrop-filter: blur(14px) saturate(1.2);
+  background: var(--brand-paper);
+  box-shadow: 0 1px 0 oklch(1 0 0), 0 10px 30px -24px oklch(0.19 0.006 310 / 45%);
 }
 
 .site-header-inner {
   display: flex;
+  flex-wrap: wrap;
   width: min(100% - clamp(2rem, 5vw, 5rem), 80rem);
-  min-height: 4.75rem;
+  min-height: 4.5rem;
   align-items: center;
-  gap: 2.5rem;
+  gap: clamp(1.5rem, 3vw, 3rem);
   margin-inline: auto;
 }
 
 .header-logo {
-  display: block;
-  flex: none;
+  display: flex;
+  flex: 0 1 auto;
+  min-width: 0;
+  align-items: center;
+  height: 100%;
+  padding-inline-end: clamp(1.5rem, 3vw, 3rem);
+  border-inline-end: 1px solid var(--brand-line);
 }
 
 .header-logo .quantum-logo {
   display: block;
-  width: 12rem;
+  width: 9.75rem;
+  max-width: 100%;
   height: auto;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-inline-start: auto;
 }
 
 .primary-navigation {
   display: flex;
   flex: 1;
+  flex-wrap: wrap;
   gap: clamp(1rem, 2.2vw, 2rem);
 }
 
@@ -273,7 +331,6 @@
 
 .header-cta {
   min-height: 2.6rem;
-  margin-inline-start: auto;
   padding-inline: 1.15rem;
   font-size: 0.95rem;
 }
@@ -281,10 +338,6 @@
 /* Mobile menu */
 
 .contents-trigger.contents-trigger {
-  position: fixed;
-  z-index: 45;
-  top: 0.95rem;
-  left: 1rem;
   display: none;
   width: 2.8rem;
   height: 2.8rem;
@@ -476,7 +529,7 @@
 }
 
 .service-row-number {
-  color: var(--brand-silver);
+  color: var(--brand-grey);
   font-size: 1.1rem;
   font-variant-numeric: tabular-nums;
   font-weight: 500;
@@ -541,7 +594,9 @@
 .approach-number {
   display: block;
   margin-bottom: 2.5rem;
-  background: var(--brand-gradient);
+  /* Lighter indigo end so the numbers stay above 3:1 on charcoal. */
+  background-image: linear-gradient(120deg, var(--brand-sky), oklch(0.72 0.12 258));
+  -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   font-size: 2.75rem;
@@ -630,23 +685,37 @@
 .cta-band-inner {
   position: relative;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: clamp(2rem, 6vw, 5rem);
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(2.5rem, 6vw, 5rem);
   align-items: center;
 }
 
-.cta-logo {
-  width: clamp(8rem, 13vw, 10.5rem);
-  height: auto;
-}
-
 .cta-band h2 {
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
 }
 
 .cta-band p {
+  max-width: 30rem;
   color: var(--brand-grey-on-ink);
   font-size: 1.1rem;
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.cta-brand {
+  padding-inline-start: clamp(2.5rem, 6vw, 5rem);
+  border-inline-start: 1px solid var(--brand-line-on-ink);
+}
+
+.cta-logo {
+  display: block;
+  width: clamp(8rem, 12vw, 10rem);
+  height: auto;
 }
 
 /* Service page */
@@ -802,37 +871,98 @@
   margin-bottom: 1.25rem;
 }
 
-.contact-details {
+.contact-methods {
   display: grid;
-  margin-top: 2.75rem;
-  border-top: 1px solid var(--brand-line);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 2.5rem;
 }
 
-.contact-details > div {
+.contact-method-wide {
+  grid-column: 1 / -1;
+}
+
+.contact-method {
   display: grid;
-  grid-template-columns: 8rem minmax(0, 1fr);
-  gap: 1rem;
-  padding-block: 0.95rem;
-  border-bottom: 1px solid var(--brand-line);
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 0.9rem;
+  row-gap: 0.1rem;
+  align-items: center;
+  height: 100%;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--brand-line);
+  border-radius: 0.6rem;
+  background: var(--brand-paper);
+  transition:
+    border-color 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    transform 140ms var(--ease-out);
 }
 
-.contact-details dt {
-  color: var(--brand-grey);
-  font-size: 0.95rem;
+.contact-method:hover {
+  border-color: var(--brand-silver);
+  box-shadow: 0 10px 24px -18px oklch(0.19 0.006 310 / 45%);
 }
 
-.contact-details dd {
-  font-weight: 500;
+.contact-method .contact-method-icon {
+  grid-row: 1 / span 2;
 }
 
-.contact-details a:hover {
+.contact-method-icon {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brand-mist);
   color: var(--brand-blue-text);
 }
 
-.contact-company {
-  margin-top: 1.5rem;
+.contact-method-label {
+  color: var(--brand-grey);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.contact-method-value {
+  justify-self: start;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.contact-office {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-top: 0.75rem;
+  padding: 1.1rem;
+  border: 1px solid var(--brand-line);
+  border-radius: 0.6rem;
+  background: var(--brand-paper);
+}
+
+.contact-office-address {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.contact-office-postal,
+.contact-office-company {
+  margin-top: 0.35rem;
   color: var(--brand-grey);
   font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.contact-office-company {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--brand-line);
 }
 
 .contact-form-card {
@@ -902,8 +1032,8 @@
 
 .quantum-site .enquiry-control:focus-visible {
   border-color: var(--brand-indigo);
-  outline: none;
-  box-shadow: 0 0 0 3px oklch(0.56 0.15 264 / 18%);
+  outline: 2px solid var(--brand-indigo);
+  outline-offset: 1px;
 }
 
 .enquiry-message {
@@ -1032,6 +1162,16 @@
   max-width: 44rem;
 }
 
+.footer-legal a {
+  color: var(--brand-paper);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.footer-legal a:hover {
+  color: var(--brand-sky);
+}
+
 /* WhatsApp shortcut */
 
 .quantum-site .floating-whatsapp {
@@ -1056,9 +1196,15 @@
 
 /* Responsive */
 
-@media (max-width: 1080px) {
+@media (max-width: 67.5em) {
   .primary-navigation {
     display: none;
+  }
+
+  .contents-trigger.contents-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .approach-steps {
@@ -1080,7 +1226,7 @@
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 53.75em) {
   .split-layout,
   .prose-layout,
   .points-layout,
@@ -1119,35 +1265,32 @@
     grid-column: -2;
   }
 
-  .cta-band-inner,
   .closing-inner {
     grid-template-columns: minmax(0, 1fr);
     justify-items: start;
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 42.5em) {
   .quantum-site {
     font-size: 1rem;
   }
 
   .site-header-inner {
-    min-height: 4.25rem;
+    min-height: 4rem;
+  }
+
+  .header-logo {
+    padding-inline-end: 0;
+    border-inline-end: 0;
   }
 
   .header-logo .quantum-logo {
-    width: 8.75rem;
+    width: 8.5rem;
   }
 
   .header-cta {
     display: none;
-  }
-
-  .contents-trigger.contents-trigger {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    top: 0.7rem;
   }
 
   .hero-motif {
@@ -1193,9 +1336,19 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .contact-details > div {
+  .contact-methods {
     grid-template-columns: minmax(0, 1fr);
-    gap: 0.15rem;
+  }
+
+  .cta-band-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cta-brand {
+    padding-inline-start: 0;
+    padding-top: 2rem;
+    border-inline-start: 0;
+    border-top: 1px solid var(--brand-line-on-ink);
   }
 
   .footer-grid {
@@ -1205,6 +1358,15 @@
   .floating-whatsapp {
     bottom: 1rem;
     left: 1rem;
+  }
+
+  .contact-hero .page-hero-motif {
+    display: none;
+  }
+
+  /* Keep the story's captions clear of the WhatsApp button. */
+  .story-stage {
+    padding-block: 6rem 6.5rem;
   }
 }
 
@@ -1403,3 +1565,159 @@ html.lenis body {
   }
 }
 
+
+
+/* Accessibility statement */
+
+.statement {
+  display: grid;
+  max-width: 48rem;
+  gap: 1.1rem;
+}
+
+.statement h2 {
+  margin-top: 2rem;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+}
+
+.statement-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.quantum-site .statement-list {
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.statement-contact {
+  margin-block: 0.5rem;
+}
+
+.statement-updated {
+  margin-top: 1.5rem;
+  color: var(--brand-grey);
+  font-size: 0.95rem;
+}
+
+.statement-contact > div {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--brand-line);
+}
+
+.statement-contact {
+  border-top: 1px solid var(--brand-line);
+}
+
+.statement-contact dt {
+  color: var(--brand-grey);
+}
+
+.statement-contact dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+.statement-contact a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 32.5em) {
+  .statement-contact > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.2rem;
+  }
+}
+
+/* Accessibility (IS 5568) fixes from the audit */
+
+/* Anchor jumps land below the sticky header, also without smooth scrolling. */
+html:has(.quantum-site) {
+  scroll-padding-top: 5.5rem;
+}
+
+/* The footer logo link wraps a block image; give it a box so focus shows. */
+.footer-brand a {
+  display: inline-block;
+}
+
+/* Sections that receive focus from the menu's in-page links. */
+.quantum-site section[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.quantum-site .nowrap {
+  white-space: nowrap;
+}
+
+/* Without motion, the scroll story shows every label and caption statically. */
+@media (prefers-reduced-motion: reduce) {
+  .quantum-site .story-canvas {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding-block: 1rem;
+  }
+
+  .quantum-site .story-symbol {
+    flex: 0 0 100%;
+    height: 14rem;
+    margin-bottom: 1rem;
+  }
+
+  .quantum-site .story-piece {
+    position: static;
+    display: inline-block;
+    transform: none;
+  }
+
+  .quantum-site .story-captions {
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .quantum-site .story-caption,
+  .quantum-site .story-final {
+    grid-area: auto;
+  }
+
+  .quantum-site .story-caption {
+    display: block;
+    font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}
+
+/* Round-2 audit fixes */
+.quantum-site .skip-link {
+  color: var(--brand-paper);
+}
+
+.contents-panel[data-slot="sheet-content"] {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-height: 100dvh;
+}
+
+.quantum-site .form-setup-notice a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.quantum-site .enquiry-status:focus {
+  outline: none;
+}
+
+/* The menu panel renders outside .quantum-site, so give its button its own styles. */
+.contents-panel .button-light {
+  background: var(--brand-paper);
+  color: var(--brand-ink);
+}

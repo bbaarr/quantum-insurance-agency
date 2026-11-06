@@ -1,6 +1,9 @@
 interface QuantumLogoProps {
-  /** "stacked" is the printed lockup (Q above the wordmark); "inline" puts the Q beside it. */
-  layout?: "stacked" | "inline";
+  /**
+   * "stacked" is the printed lockup (Q above the wordmark); "inline" puts the Q
+   * beside the wordmark with the tagline; "wordmark" is the Q and name only.
+   */
+  layout?: "stacked" | "inline" | "wordmark";
   /** "dark" for paper backgrounds, "light" for the charcoal ones. */
   tone?: "dark" | "light";
   className?: string;
@@ -9,11 +12,13 @@ interface QuantumLogoProps {
 const files = {
   stacked: { dark: "/brand/quantum-logo-dark.svg", light: "/brand/quantum-logo-light.svg" },
   inline: { dark: "/brand/quantum-logo-inline-dark.svg", light: "/brand/quantum-logo-inline-light.svg" },
+  wordmark: { dark: "/brand/quantum-logo-wordmark-dark.svg", light: "/brand/quantum-logo-wordmark-light.svg" },
 } as const;
 
 const sizes = {
   stacked: { width: 174, height: 121 },
   inline: { width: 208, height: 38 },
+  wordmark: { width: 208, height: 35 },
 } as const;
 
 /** Quantum's full logo, taken from the vector artwork in the brand stationery. */

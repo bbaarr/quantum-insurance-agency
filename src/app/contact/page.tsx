@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import BrandMotif from "@/components/brand/BrandMotif";
 import EnquiryEmailForm from "@/components/contact/EnquiryEmailForm";
 import SiteFrame from "@/components/site/SiteFrame";
@@ -49,29 +50,40 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                 : "השאירו פרטים ונחזור אליכם לתיאום פגישה, או פנו אלינו ישירות."}
             </p>
 
-            <dl className="contact-details">
+            <ul className="contact-methods">
+              <li>
+                <a className="contact-method" href={`tel:${officePhoneHref}`}>
+                  <span className="contact-method-icon"><Phone aria-hidden="true" size={19} strokeWidth={1.7} /></span>
+                  <span className="contact-method-label">טלפון במשרד</span>
+                  <bdi className="contact-method-value" dir="ltr">{officePhone}</bdi>
+                </a>
+              </li>
+              <li>
+                <a className="contact-method" href={whatsappHref} rel="noopener noreferrer" target="_blank">
+                  <span className="contact-method-icon"><MessageCircle aria-hidden="true" size={19} strokeWidth={1.7} /></span>
+                  <span className="contact-method-label" lang="en">WhatsApp</span>
+                  <bdi className="contact-method-value" dir="ltr">{whatsappDisplay}</bdi>
+                  <span className="sr-only"> (נפתח בחלון חדש)</span>
+                </a>
+              </li>
+              <li className="contact-method-wide">
+                <a className="contact-method" href={`mailto:${contactEmail}`}>
+                  <span className="contact-method-icon"><Mail aria-hidden="true" size={19} strokeWidth={1.7} /></span>
+                  <span className="contact-method-label">דוא״ל</span>
+                  <bdi className="contact-method-value" dir="ltr">{contactEmail}</bdi>
+                </a>
+              </li>
+            </ul>
+
+            <div className="contact-office">
+              <span className="contact-method-icon"><MapPin aria-hidden="true" size={19} strokeWidth={1.7} /></span>
               <div>
-                <dt>טלפון</dt>
-                <dd><a href={`tel:${officePhoneHref}`}><bdi dir="ltr">{officePhone}</bdi></a></dd>
+                <p className="contact-method-label">המשרד</p>
+                <p className="contact-office-address">{officeAddress}</p>
+                <p className="contact-office-postal">כתובת דואר למכתבים: {postalAddress}</p>
+                <p className="contact-office-company">{companyName}</p>
               </div>
-              <div>
-                <dt>דוא״ל</dt>
-                <dd><a href={`mailto:${contactEmail}`}><bdi dir="ltr">{contactEmail}</bdi></a></dd>
-              </div>
-              <div>
-                <dt>WhatsApp</dt>
-                <dd><a href={whatsappHref} rel="noopener noreferrer" target="_blank"><bdi dir="ltr">{whatsappDisplay}</bdi></a></dd>
-              </div>
-              <div>
-                <dt>המשרד</dt>
-                <dd>{officeAddress}</dd>
-              </div>
-              <div>
-                <dt>דואר למכתבים</dt>
-                <dd>{postalAddress}</dd>
-              </div>
-            </dl>
-            <p className="contact-company">{companyName}</p>
+            </div>
           </div>
 
           <div className="contact-form-card" id="enquiry-form">
