@@ -309,3 +309,32 @@ export default function Home() {
     </div>
   );
 }
+import EnquiryEmailForm from "@/components/contact/EnquiryEmailForm";
+        <section className="section contact-section" id="contact" aria-labelledby="contact-title">
+          <div className="content-width contact-inner">
+            <div className="contact-heading">
+              <p className="eyebrow">Your next step</p>
+              <h2 id="contact-title">Let’s make the picture clearer.</h2>
+              <p>
+                Fill in a short note or contact Quantum directly. The form opens your email app;
+                it does not send automatically.
+              </p>
+            </div>
+            <div className="contact-details">
+              <EnquiryEmailForm recipientEmail={emailAddress} />
+              <div className="contact-actions">
+                <a className="contact-action" href={emailHref}>
+                  <span><Mail size={19} strokeWidth={1.8} aria-hidden="true" /> Email Quantum</span>
+                  <ArrowRight size={18} strokeWidth={1.8} aria-hidden="true" />
+                </a>
+                <a className="contact-action" href={whatsappHref} target="_blank" rel="noreferrer">
+                  <span><MessageCircle size={19} strokeWidth={1.8} aria-hidden="true" /> Message on WhatsApp</span>
+                  <ArrowUpRight size={18} strokeWidth={1.8} aria-hidden="true" />
+                </a>
+              </div>
+              <p className="contact-note">
+                WhatsApp: <a className="text-link" href={`tel:${phoneNumber}`}>053-853-6090</a>
+              </p>
+            </div>
+          </div>
+        </section>

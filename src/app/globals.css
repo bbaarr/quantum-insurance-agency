@@ -867,3 +867,140 @@ textarea {
   .contact-actions { margin-top: 0.5rem; }
   .footer-main { align-items: flex-start; flex-direction: column; }
 }
+.contact-inner {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+}
+
+.contact-details {
+  display: grid;
+  min-width: 0;
+  gap: 1rem;
+}
+
+.enquiry-form {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 2.2vw, 1.5rem);
+  border: 1px solid var(--brand-line);
+  background: var(--brand-paper);
+}
+
+.enquiry-form-heading {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.enquiry-form-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.enquiry-form-description {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.enquiry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.enquiry-field {
+  display: grid;
+  min-width: 0;
+  gap: 0.4rem;
+}
+
+.enquiry-field-wide {
+  grid-column: 1 / -1;
+}
+
+.enquiry-label {
+  color: var(--brand-night);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.enquiry-label span {
+  color: var(--muted-foreground);
+  font-weight: 450;
+}
+
+.enquiry-control {
+  min-width: 0;
+  min-height: 2.85rem;
+  border-color: var(--brand-line);
+  border-radius: 0;
+  background: var(--brand-paper);
+  color: var(--brand-night);
+  font-size: 0.92rem;
+}
+
+.enquiry-control::placeholder {
+  color: var(--muted-foreground);
+  opacity: 1;
+}
+
+.enquiry-message {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.enquiry-consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.enquiry-consent-label {
+  color: var(--brand-night);
+  cursor: pointer;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.enquiry-privacy-note {
+  max-width: 56ch;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.73rem;
+  line-height: 1.55;
+}
+
+.enquiry-submit {
+  min-height: 3.25rem;
+  justify-content: space-between;
+  padding-inline: 1rem;
+  border-radius: 0;
+  background: var(--brand-night);
+  color: var(--brand-paper);
+  font-weight: 700;
+}
+
+.enquiry-status {
+  min-height: 1.5rem;
+  margin: 0;
+  color: var(--brand-night);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 680px) {
+  .contact-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .enquiry-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .enquiry-field-wide {
+    grid-column: auto;
+  }
+}

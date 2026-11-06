@@ -25,3 +25,7 @@ Individuals and families reviewing financial goals, pensions, retirement plans o
 - Do not claim guaranteed investment returns, retirement income or insurance outcomes.
 - Insurance coverage is governed by underwriting, applicable law and the issued policy.
 - Do not invent credentials, testimonials, metrics or a business address.
+- Responsive Quantum homepage with five service areas, a three-step review overview and practical FAQs.
+- Direct email, phone and WhatsApp links using the confirmed +972 number.
+- Enquiry form prepares a draft in the visitor’s email app; it does not send automatically or store leads on the site.
+- Preview only; the domain is not connected.

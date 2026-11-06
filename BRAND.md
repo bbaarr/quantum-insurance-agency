@@ -13,6 +13,7 @@ ctas:
   - "Email Quantum"
   - "Message on WhatsApp"
   - "053-853-6090"
+  - "Prepare email"
 palette:
   - "oklch(0.97 0.015 238)"
   - "oklch(0.2 0.035 252)"
