@@ -53,7 +53,7 @@ export const servicePages: ServicePageContent[] = [
   },
   {
     slug: "pension-planning",
-    title: "תכנון פנסיוני",
+    title: "תכנון פנסיוני שרואה רחוק",
     navTitle: "תכנון פנסיוני",
     summary: "תמונה מסודרת של התוכניות, ההפקדות, המסלולים והכיסויים הקיימים.",
     intro:
@@ -80,7 +80,7 @@ export const servicePages: ServicePageContent[] = [
   },
   {
     slug: "retirement-planning",
-    title: "תכנון פרישה לפנסיה",
+    title: "פרישה שמתכננים מראש",
     navTitle: "תכנון פרישה",
     summary: "היערכות למקורות ההכנסה, לתקציב ולשאלות שעולות לקראת הפרישה.",
     intro:
@@ -107,7 +107,7 @@ export const servicePages: ServicePageContent[] = [
   },
   {
     slug: "personal-insurance",
-    title: "ביטוחי פרט והגנות אישיות",
+    title: "הגנה על מה שחשוב לכם",
     navTitle: "ביטוחי פרט",
     summary: "סקירת הכיסויים הקיימים מול הצרכים המשתנים של האדם והמשפחה.",
     intro:
@@ -134,7 +134,7 @@ export const servicePages: ServicePageContent[] = [
   },
   {
     slug: "general-insurance",
-    title: "ביטוח רכוש, רכב ועסק",
+    title: "ביטוח לבית, לרכב ולעסק",
     navTitle: "ביטוח כללי",
     summary: "סקירת כיסויים לרכב, לדירה, לעסק ולחבויות, לפי תנאי הפוליסה.",
     intro:
