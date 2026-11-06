@@ -7,9 +7,9 @@ value_props:
   - "Responsive Hebrew homepage and five individual service pages, plus a contact page"
   - "Floating contents navigation for site pages and in-page sections"
   - "Supplied Quantum logo, mostly light neutral styling with selective navy sections, warm bronze details and Quantum blue accents"
-  - "Direct email, office phone and WhatsApp links using the confirmed +972 business number"
+  - "Direct email and office-phone links, plus a persistent WhatsApp shortcut using the separately confirmed +972 mobile number"
+  - "Restrained section reveals as visitors scroll, disabled when reduced motion is preferred"
   - "Enquiry form sends to office@quantum-ins.co.il through Imagine’s managed email service, with validation and pending, success and error states"
-  - "The site does not store enquiry records or use Formspree; message delivery is handled by Imagine’s email service"
 palette:
   - "oklch(0.97 0.015 238)"
   - "oklch(0.2 0.035 252)"

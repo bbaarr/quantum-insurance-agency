@@ -84,6 +84,7 @@ Declared in `globals.css` as `--color-*` and mirrored in the frontmatter. Use th
 - Shared components: semantic links, service rows, native disclosure details, accessible sheet navigation and contact actions.
 - Use the official supplied Quantum logo; pair it with the brand name in real text rather than redrawing it.
 - The Q motif is a quiet layout detail, not a substitute for service content.
+- Scroll motion is limited to small, one-time section reveals; disable it for visitors who prefer reduced motion.
 
 ## Shapes
 

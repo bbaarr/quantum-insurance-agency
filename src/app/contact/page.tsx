@@ -10,7 +10,7 @@ import {
   officePhoneHref,
   postalAddress,
   whatsappDisplay,
-  whatsappPhone,
+  whatsappHref,
 } from "@/lib/site-content";
 
 export const metadata: Metadata = {
@@ -24,8 +24,6 @@ export const metadata: Metadata = {
     siteName: "קוואנטום",
   },
 };
-
-const whatsappHref = `https://wa.me/${whatsappPhone.replace("+", "")}?text=${encodeURIComponent("שלום קוואנטום, אשמח לקבל מידע על השירותים שלכם.")}`;
 
 export default function ContactPage() {
   return (
