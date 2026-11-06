@@ -111,7 +111,7 @@ export default function ScrollReveal({ children }: ScrollRevealProps) {
           // Hero copy drifts and fades gently as it scrolls away.
           gsap.to(hero.querySelectorAll(".home-hero-inner, .page-hero-inner"), {
             yPercent: -12,
-            opacity: 0.35,
+            opacity: 0.85,
             ease: "none",
             scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
           });

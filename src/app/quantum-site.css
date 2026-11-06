@@ -259,8 +259,9 @@
 
 .site-header-inner {
   display: flex;
+  flex-wrap: wrap;
   width: min(100% - clamp(2rem, 5vw, 5rem), 80rem);
-  height: 4.5rem;
+  min-height: 4.5rem;
   align-items: center;
   gap: clamp(1.5rem, 3vw, 3rem);
   margin-inline: auto;
@@ -268,7 +269,8 @@
 
 .header-logo {
   display: flex;
-  flex: none;
+  flex: 0 1 auto;
+  min-width: 0;
   align-items: center;
   height: 100%;
   padding-inline-end: clamp(1.5rem, 3vw, 3rem);
@@ -278,6 +280,7 @@
 .header-logo .quantum-logo {
   display: block;
   width: 9.75rem;
+  max-width: 100%;
   height: auto;
 }
 
@@ -291,6 +294,7 @@
 .primary-navigation {
   display: flex;
   flex: 1;
+  flex-wrap: wrap;
   gap: clamp(1rem, 2.2vw, 2rem);
 }
 
@@ -591,7 +595,8 @@
   display: block;
   margin-bottom: 2.5rem;
   /* Lighter indigo end so the numbers stay above 3:1 on charcoal. */
-  background: linear-gradient(120deg, var(--brand-sky), oklch(0.72 0.12 258));
+  background-image: linear-gradient(120deg, var(--brand-sky), oklch(0.72 0.12 258));
+  -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   font-size: 2.75rem;
@@ -1191,7 +1196,7 @@
 
 /* Responsive */
 
-@media (max-width: 1080px) {
+@media (max-width: 67.5em) {
   .primary-navigation {
     display: none;
   }
@@ -1221,7 +1226,7 @@
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 53.75em) {
   .split-layout,
   .prose-layout,
   .points-layout,
@@ -1266,13 +1271,13 @@
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 42.5em) {
   .quantum-site {
     font-size: 1rem;
   }
 
   .site-header-inner {
-    height: 4rem;
+    min-height: 4rem;
   }
 
   .header-logo {
@@ -1621,9 +1626,72 @@ html.lenis body {
   text-underline-offset: 0.2em;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 32.5em) {
   .statement-contact > div {
     grid-template-columns: minmax(0, 1fr);
     gap: 0.2rem;
+  }
+}
+
+/* Accessibility (IS 5568) fixes from the audit */
+
+/* Anchor jumps land below the sticky header, also without smooth scrolling. */
+html:has(.quantum-site) {
+  scroll-padding-top: 5.5rem;
+}
+
+/* The footer logo link wraps a block image; give it a box so focus shows. */
+.footer-brand a {
+  display: inline-block;
+}
+
+/* Sections that receive focus from the menu's in-page links. */
+.quantum-site section[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.quantum-site .nowrap {
+  white-space: nowrap;
+}
+
+/* Without motion, the scroll story shows every label and caption statically. */
+@media (prefers-reduced-motion: reduce) {
+  .quantum-site .story-canvas {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding-block: 1rem;
+  }
+
+  .quantum-site .story-symbol {
+    flex: 0 0 100%;
+    height: 14rem;
+    margin-bottom: 1rem;
+  }
+
+  .quantum-site .story-piece {
+    position: static;
+    display: inline-block;
+    transform: none;
+  }
+
+  .quantum-site .story-captions {
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .quantum-site .story-caption,
+  .quantum-site .story-final {
+    grid-area: auto;
+  }
+
+  .quantum-site .story-caption {
+    display: block;
+    font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+    opacity: 1;
+    visibility: visible;
+    transform: none;
   }
 }
