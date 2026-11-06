@@ -1594,3 +1594,36 @@ html.lenis body {
   color: var(--brand-grey);
   font-size: 0.95rem;
 }
+
+.statement-contact > div {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--brand-line);
+}
+
+.statement-contact {
+  border-top: 1px solid var(--brand-line);
+}
+
+.statement-contact dt {
+  color: var(--brand-grey);
+}
+
+.statement-contact dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+.statement-contact a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 520px) {
+  .statement-contact > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.2rem;
+  }
+}

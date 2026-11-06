@@ -127,7 +127,7 @@ export default function ScrollStory() {
       <div className="story-stage">
         {/* The animated scene is visual only; this is the same story for screen readers. */}
         <div className="sr-only">
-          <p>חיסכון והשקעות, פנסיה, פרישה, ביטוח חיים ובריאות, רכוש ועסק.</p>
+          <p>{pieces.map((piece) => piece.label).join(", ")}.</p>
           {captions.map((caption) => <p key={caption.kicker}>{caption.text}</p>)}
           <p>כל התמונה. במקום אחד. חיסכון, פנסיה, פרישה וביטוח, בראייה אחת מסודרת.</p>
         </div>

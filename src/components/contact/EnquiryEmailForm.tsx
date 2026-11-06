@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, type FormEvent } from "react";
 import { ArrowUpLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -26,8 +26,30 @@ export default function EnquiryEmailForm({ defaultService }: EnquiryEmailFormPro
     if (state.status === "success") formRef.current?.reset();
   }, [state]);
 
+  // Browser validation messages follow the browser's language; give them in Hebrew.
+  const handleInvalid = (event: FormEvent<HTMLFormElement>) => {
+    const field = event.target as HTMLInputElement;
+    if (!field.validity || field.validity.customError) return;
+    const label = field.labels?.[0]?.textContent?.trim() ?? "השדה";
+    if (field.validity.valueMissing) {
+      field.setCustomValidity(field.type === "checkbox" ? "יש לאשר כדי שנוכל לחזור אליכם." : `נא למלא: ${label}.`);
+    } else if (field.validity.typeMismatch && field.type === "email") {
+      field.setCustomValidity("נא להזין כתובת דוא״ל תקינה, לדוגמה name@example.com.");
+    }
+  };
+  const clearCustomValidity = (event: FormEvent<HTMLFormElement>) => {
+    (event.target as HTMLInputElement).setCustomValidity?.("");
+  };
+
   return (
-    <form action={formAction} className="enquiry-form" ref={formRef}>
+    <form
+      action={formAction}
+      className="enquiry-form"
+      onChange={clearCustomValidity}
+      onInput={clearCustomValidity}
+      onInvalidCapture={handleInvalid}
+      ref={formRef}
+    >
       <div aria-hidden="true" className="enquiry-honeypot">
         <Label htmlFor="enquiry-website">השאירו שדה זה ריק</Label>
         <Input autoComplete="off" id="enquiry-website" name="website" tabIndex={-1} />
@@ -63,8 +85,8 @@ export default function EnquiryEmailForm({ defaultService }: EnquiryEmailFormPro
       </div>
 
       <div className="enquiry-consent-row">
-        <Checkbox id="enquiry-consent" name="consent" required value="yes" />
-        <Label className="enquiry-consent-label" htmlFor="enquiry-consent">
+        <Checkbox aria-labelledby="enquiry-consent-label" aria-required="true" id="enquiry-consent" name="consent" required value="yes" />
+        <Label className="enquiry-consent-label" htmlFor="enquiry-consent" id="enquiry-consent-label">
           אני מסכים/ה שקוואנטום תחזור אליי בנוגע לפנייה זו.
         </Label>
       </div>
