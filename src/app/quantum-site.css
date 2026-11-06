@@ -5,6 +5,28 @@
   a few thin accents. Everything else is paper, ink and grey.
 */
 
+/*
+  Heebo (SIL Open Font License, public/fonts/Heebo-OFL.txt), served from the
+  site itself so every visitor gets it; nothing depends on locally installed fonts.
+*/
+@font-face {
+  font-family: "Heebo Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/heebo-hebrew-wght-normal.woff2") format("woff2-variations"), url("/fonts/heebo-hebrew-wght-normal.woff2") format("woff2");
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: "Heebo Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/heebo-latin-wght-normal.woff2") format("woff2-variations"), url("/fonts/heebo-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 .quantum-site,
 .contents-panel[data-slot="sheet-content"] {
   --brand-ink: oklch(0.19 0.006 310);
@@ -26,7 +48,7 @@
   --brand-night: var(--brand-ink);
   --brand-ice: var(--brand-sky);
 
-  /* Heebo ships with the site (self-hosted woff2, font-display: swap); the fallbacks all carry Hebrew. */
+  /* Heebo is self-hosted (see @font-face above); the fallbacks all carry Hebrew. */
   --font-brand: "Heebo Variable", "Segoe UI", Arial, "Arial Hebrew", "Noto Sans Hebrew", sans-serif;
   --radius-control: 0.375rem;
 

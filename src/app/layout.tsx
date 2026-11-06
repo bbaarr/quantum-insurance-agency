@@ -20,6 +20,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="he" dir="rtl">
+      <head>
+        <link as="font" crossOrigin="" href="/fonts/heebo-hebrew-wght-normal.woff2" rel="preload" type="font/woff2" />
+      </head>
       <body className="min-h-dvh antialiased">
         {children}
         <Script
