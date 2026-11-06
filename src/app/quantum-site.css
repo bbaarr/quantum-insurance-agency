@@ -2,24 +2,30 @@
   --brand-night: oklch(0.13 0.018 254);
   --brand-night-soft: oklch(0.18 0.021 254);
   --brand-night-raised: oklch(0.22 0.023 254);
-  --brand-paper: oklch(0.95 0.01 242);
+  --brand-paper: oklch(0.99 0.004 82);
   --brand-silver: oklch(0.82 0.012 245);
   --brand-ice: oklch(0.76 0.12 225);
   --brand-blue: oklch(0.61 0.16 255);
-  --brand-line: oklch(0.34 0.025 250);
+  --brand-line: oklch(0.87 0.008 78);
+  --brand-line-dark: oklch(0.34 0.025 250);
+  --brand-linen: oklch(0.96 0.006 80);
+  --brand-muted: oklch(0.46 0.018 252);
+  --brand-bronze: oklch(0.64 0.065 65);
+  --brand-bronze-ink: oklch(0.43 0.06 65);
+  --brand-blue-ink: oklch(0.44 0.12 250);
   --brand-gradient: linear-gradient(135deg, var(--brand-ice), var(--brand-blue));
-  --background: var(--brand-night);
-  --foreground: var(--brand-paper);
-  --card: var(--brand-night-soft);
-  --card-foreground: var(--brand-paper);
-  --popover: var(--brand-night-soft);
-  --popover-foreground: var(--brand-paper);
-  --primary: var(--brand-ice);
+  --background: var(--brand-paper);
+  --foreground: var(--brand-night);
+  --card: var(--brand-linen);
+  --card-foreground: var(--brand-night);
+  --popover: var(--brand-paper);
+  --popover-foreground: var(--brand-night);
+  --primary: var(--brand-bronze);
   --primary-foreground: var(--brand-night);
-  --secondary: var(--brand-night-raised);
-  --secondary-foreground: var(--brand-paper);
-  --muted: var(--brand-night-raised);
-  --muted-foreground: oklch(0.72 0.018 242);
+  --secondary: var(--brand-linen);
+  --secondary-foreground: var(--brand-night);
+  --muted: var(--brand-linen);
+  --muted-foreground: var(--brand-muted);
   --accent: var(--brand-ice);
   --accent-foreground: var(--brand-night);
   --border: var(--brand-line);
@@ -27,8 +33,8 @@
   --ring: var(--brand-ice);
   min-height: 100vh;
   overflow: clip;
-  background: var(--brand-night);
-  color: var(--brand-paper);
+  background: var(--brand-paper);
+  color: var(--brand-night);
   direction: rtl;
   font-family: var(--font-sans);
 }
@@ -1145,6 +1151,15 @@
   color: var(--brand-night);
 }
 
+.enquiry-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .enquiry-consent-row [data-slot="checkbox"][data-checked] {
   border-color: var(--brand-ice);
   background: var(--brand-ice);
@@ -1594,4 +1609,316 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.quantum-site .site-header,
+.quantum-site .site-footer,
+.process-section,
+.contact-banner,
+.related-section {
+  --brand-line: var(--brand-line-dark);
+  --muted-foreground: var(--brand-silver);
+}
+
+.quantum-site .eyebrow {
+  color: var(--brand-muted);
+}
+
+.quantum-site .site-header {
+  border-bottom-color: var(--brand-line-dark);
+}
+
+.contents-panel[data-slot="sheet-content"] {
+  --brand-night: oklch(0.13 0.018 254);
+  --brand-night-soft: oklch(0.18 0.021 254);
+  --brand-night-raised: oklch(0.22 0.023 254);
+  --brand-paper: oklch(0.99 0.004 82);
+  --brand-silver: oklch(0.82 0.012 245);
+  --brand-ice: oklch(0.76 0.12 225);
+  --brand-line: oklch(0.34 0.025 250);
+  --muted-foreground: oklch(0.72 0.018 242);
+}
+
+.home-hero,
+.page-hero {
+  border-color: var(--brand-line);
+  background: var(--brand-paper);
+  color: var(--brand-night);
+}
+
+.home-hero h1,
+.page-hero h1,
+.section-heading h2,
+.section-aside h2,
+.contact-form-heading h2 {
+  color: var(--brand-night);
+}
+
+.home-hero h1 span,
+.section-heading h2 span,
+.section-aside h2 span {
+  color: var(--brand-bronze-ink);
+}
+
+.home-hero-summary,
+.page-hero-summary {
+  color: var(--brand-muted);
+}
+
+.home-hero .hero-index {
+  --brand-line: var(--brand-line-dark);
+  --muted-foreground: var(--brand-silver);
+  background: var(--brand-night);
+  color: var(--brand-paper);
+}
+
+.home-hero .hero-index-title {
+  color: var(--brand-paper);
+}
+
+.home-hero .secondary-link {
+  border-color: var(--brand-line);
+  color: var(--brand-night);
+}
+
+.home-hero .secondary-link:hover {
+  border-color: var(--brand-bronze);
+  background: var(--brand-linen);
+}
+
+.header-contact,
+.primary-link {
+  border-color: var(--brand-bronze);
+  background: var(--brand-bronze);
+  color: var(--brand-night) !important;
+}
+
+.home-hero .hero-watermark {
+  opacity: 0.075;
+}
+
+.statement-band {
+  border-color: var(--brand-line);
+  background: var(--brand-linen);
+}
+
+.statement-inner p {
+  color: var(--brand-muted);
+}
+
+.section-heading h2,
+.section-aside h2,
+.contact-form-heading h2 {
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+}
+
+.service-card {
+  border-color: var(--brand-line);
+  border-radius: 0.5rem;
+  background: var(--brand-linen);
+  color: var(--brand-night);
+}
+
+.service-card h3 {
+  color: var(--brand-night);
+}
+
+.service-card:hover {
+  border-color: var(--brand-bronze);
+  background: var(--brand-paper);
+}
+
+.service-card-cta {
+  color: var(--brand-blue-ink);
+}
+
+.service-card-top > span,
+.service-card-top > svg {
+  color: var(--brand-blue-ink);
+}
+
+.service-card:nth-child(3) {
+  border-color: var(--brand-line-dark);
+  background: var(--brand-night);
+  color: var(--brand-paper);
+}
+
+.service-card:nth-child(3) h3 {
+  color: var(--brand-paper);
+}
+
+.service-card:nth-child(3) p {
+  color: var(--brand-silver);
+}
+
+.service-card:nth-child(3) .service-card-cta {
+  color: var(--brand-ice);
+}
+
+.service-card:nth-child(3):hover {
+  background: var(--brand-night-soft);
+}
+
+.process-section {
+  background: var(--brand-night);
+  color: var(--brand-paper);
+}
+
+.process-section .process-intro h2,
+.process-section .process-row h3 {
+  color: var(--brand-paper);
+}
+
+.process-section .process-intro h2 span {
+  color: var(--brand-silver);
+}
+
+.contact-banner {
+  background: var(--brand-night);
+  color: var(--brand-paper);
+}
+
+.contact-banner .eyebrow {
+  color: var(--brand-silver);
+}
+
+.service-faq-section,
+.contact-page-section,
+.contact-location-band {
+  --muted-foreground: var(--brand-muted);
+  background: var(--brand-paper);
+  color: var(--brand-night);
+}
+
+.faq-item summary {
+  color: var(--brand-night);
+}
+
+.faq-item p {
+  color: var(--brand-muted);
+}
+
+.review-item p {
+  color: var(--brand-night);
+}
+
+.review-check,
+.breadcrumb-line a:hover,
+.breadcrumb-line svg,
+.related-heading > a,
+.location-band-inner > a,
+.text-link,
+.contact-method-card > svg,
+.contact-method-label svg,
+.contact-method-card > a:hover {
+  color: var(--brand-blue-ink);
+}
+
+.related-section {
+  background: var(--brand-night);
+  color: var(--brand-paper);
+}
+
+.related-section .related-heading h2 {
+  color: var(--brand-paper);
+}
+
+.related-section .related-heading > a,
+.related-section .text-link,
+.related-section .related-link > svg {
+  color: var(--brand-ice);
+}
+
+.contact-method-card,
+.office-address-card {
+  border-color: var(--brand-line);
+  background: var(--brand-linen);
+}
+
+.contact-method-card > a,
+.office-address-card > p:not(.contact-method-label) {
+  color: var(--brand-night);
+}
+
+.enquiry-form {
+  border-color: var(--brand-line);
+  border-radius: 0.6rem;
+  background: var(--brand-paper);
+  color: var(--brand-night);
+}
+
+.enquiry-form-title,
+.enquiry-label,
+.enquiry-consent-label {
+  color: var(--brand-night);
+}
+
+.quantum-site .enquiry-control,
+.quantum-site .enquiry-select option {
+  border-color: var(--brand-line);
+  background: var(--brand-paper);
+  color: var(--brand-night);
+}
+
+.quantum-site .enquiry-control {
+  border-radius: 0.35rem;
+}
+
+.quantum-site .enquiry-control::placeholder {
+  color: var(--brand-muted);
+}
+
+.enquiry-consent-row [data-slot="checkbox"][data-checked] {
+  border-color: var(--brand-bronze);
+  background: var(--brand-bronze);
+}
+
+.form-setup-notice {
+  border-inline-start-color: var(--brand-bronze);
+  border-radius: 0.2rem;
+  background: var(--brand-linen);
+  color: var(--brand-night);
+}
+
+.form-setup-notice a {
+  color: var(--brand-blue-ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.enquiry-submit {
+  border-color: var(--brand-bronze);
+  border-radius: 0.35rem;
+  background: var(--brand-bronze);
+  color: var(--brand-night);
+}
+
+.enquiry-submit:hover:not(:disabled) {
+  border-color: var(--brand-bronze-ink);
+  background: var(--brand-bronze-ink);
+  color: var(--brand-paper);
+}
+
+.enquiry-status.success {
+  color: oklch(0.42 0.1 155);
+}
+
+.enquiry-status.error {
+  color: oklch(0.48 0.14 25);
+}
+
+.contact-location-band {
+  border-color: var(--brand-line);
+}
+
+.location-band-inner p {
+  color: var(--brand-muted);
+}
+
+.quantum-site .site-footer {
+  --brand-line: var(--brand-line-dark);
+  background: var(--brand-night);
+  color: var(--brand-paper);
 }

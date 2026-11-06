@@ -18,10 +18,10 @@ Individuals and families reviewing financial goals, pensions, retirement plans o
 <!-- Kept current by the Build agent after each build -->
 - Responsive Hebrew homepage and five individual service pages, plus a contact page.
 - Floating contents navigation for site pages and in-page sections.
-- Supplied Quantum logo, dark navy and silver-blue styling, and mobile layouts.
+- Supplied Quantum logo, mostly light neutral styling with selective navy sections, warm bronze details and Quantum blue accents.
 - Direct email, office phone and WhatsApp links using the confirmed +972 business number.
-- Enquiry form with genuine pending, success and error states; external Formspree endpoint is not configured yet.
-- The site does not store leads; Formspree may retain submissions under its own terms.
+- Enquiry form sends to office@quantum-ins.co.il through Imagine’s managed email service, with validation and pending, success and error states.
+- The site does not store enquiry records or use Formspree; message delivery is handled by Imagine’s email service.
 - Preview only; the domain is not connected.
 
 ## Constraints / must-nots

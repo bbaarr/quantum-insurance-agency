@@ -1,81 +1,37 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { ArrowUpLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { sendQuantumEnquiry } from "@/app/actions";
+import { contactEmail, officePhone, officePhoneHref } from "@/lib/site-content";
 
-const formEndpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT ?? "";
-
-function isSupportedEndpoint(endpoint: string): boolean {
-  try {
-    const url = new URL(endpoint);
-    return (
-      url.protocol === "https:" &&
-      url.hostname === "formspree.io" &&
-      /^\/f\/[a-zA-Z0-9]+\/?$/.test(url.pathname)
-    );
-  } catch {
-    return false;
-  }
-}
-
-const formIsConfigured = isSupportedEndpoint(formEndpoint);
-
-type SubmissionState = "idle" | "sending" | "success" | "error";
+const initialState = { status: "idle" as const, message: "" };
 
 export default function EnquiryEmailForm() {
-  const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
+  const [state, formAction, pending] = useActionState(sendQuantumEnquiry, initialState);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    if (!formIsConfigured) {
-      setSubmissionState("error");
-      return;
-    }
-
-    const form = event.currentTarget;
-    setSubmissionState("sending");
-
-    try {
-      const response = await fetch(formEndpoint, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" },
-      });
-
-      if (!response.ok) {
-        setSubmissionState("error");
-        return;
-      }
-
-      form.reset();
-      setSubmissionState("success");
-    } catch {
-      setSubmissionState("error");
-    }
-  }
-
-  const statusMessage =
-    submissionState === "success"
-      ? "הפנייה נשלחה. תודה — נחזור אליכם לפי הפרטים שמסרתם."
-      : submissionState === "error"
-        ? "השליחה לא הושלמה. אפשר לפנות אלינו ישירות בדוא״ל או בטלפון."
-        : submissionState === "sending"
-          ? "שולחים את הפנייה…"
-          : "";
+  useEffect(() => {
+    if (state.status === "success") formRef.current?.reset();
+  }, [state]);
 
   return (
-    <form className="enquiry-form" onSubmit={handleSubmit}>
+    <form action={formAction} className="enquiry-form" ref={formRef}>
       <div className="enquiry-form-heading">
         <p className="enquiry-form-title">נשמח לשמוע מכם</p>
         <p className="enquiry-form-description">
           השאירו פרטי קשר ונושא לפנייה. אין לכלול מספרי חשבון או מידע פיננסי, רפואי או ביטוחי רגיש.
         </p>
+      </div>
+
+      <div aria-hidden="true" className="enquiry-honeypot">
+        <Label htmlFor="enquiry-website">השאירו שדה זה ריק</Label>
+        <Input autoComplete="off" id="enquiry-website" name="website" tabIndex={-1} />
       </div>
 
       <div className="enquiry-grid">
@@ -117,20 +73,22 @@ export default function EnquiryEmailForm() {
       </div>
 
       <p className="enquiry-privacy-note">
-        הפנייה נשלחת באמצעות Formspree, שירות חיצוני. פרטים עשויים להישמר שם לפי תנאי השירות והמסלול; באתר קוואנטום לא נשמרת רשימת פניות.
+        הפרטים נשלחים למשרד בדוא״ל דרך Imagine. האתר אינו שומר רשימת פניות; אין לכלול מידע פיננסי או רפואי רגיש.
       </p>
 
-      {!formIsConfigured ? (
-        <p className="form-setup-notice" role="status">
-          הטופס המקוון עדיין לא הופעל. עד להפעלתו אפשר לפנות אלינו ישירות בדוא״ל או בטלפון.
+      {state.status === "error" ? (
+        <p className="form-setup-notice">
+          אפשר לנסות שוב או לפנות ישירות ל־<a dir="ltr" href={`mailto:${contactEmail}`}>{contactEmail}</a> או <a dir="ltr" href={`tel:${officePhoneHref}`}>{officePhone}</a>.
         </p>
       ) : null}
 
-      <Button className="enquiry-submit" disabled={!formIsConfigured || submissionState === "sending" || submissionState === "success"} type="submit">
-        {submissionState === "sending" ? "שולחים…" : submissionState === "success" ? "הפנייה נשלחה" : "שליחת פרטים"}
+      <Button className="enquiry-submit" disabled={pending} type="submit">
+        {pending ? "שולחים…" : "שליחת פרטים"}
         <ArrowUpLeft aria-hidden="true" size={17} strokeWidth={1.8} />
       </Button>
-      <p aria-live="polite" className={`enquiry-status ${submissionState}`} role="status">{statusMessage}</p>
+      <p aria-live="polite" className={`enquiry-status ${pending ? "pending" : state.status}`} role="status">
+        {pending ? "שולחים את הפנייה…" : state.message}
+      </p>
     </form>
   );
 }

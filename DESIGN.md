@@ -47,19 +47,22 @@ rounded:
 
 ## Overview
 
-Night-shift insurance folio: deep near-black navy fields, silver typography, ice-blue markers, sharp rules, oversized headlines and a restrained geometric Q motif. Hebrew-first and fully right-to-left, with a crisp institutional edge rather than a generic finance template.
+Bright financial folio: warm-white reading surfaces, occasional deep navy sections, restrained bronze details and Quantum’s ice-blue mark. Hebrew-first and fully right-to-left, with generous spacing, strong headings, crisp rules and a restrained geometric Q motif. Borrow the airy color balance, not another agency’s page structure or content.
 
 ## Colors
 
 | Token | Value |
-| background | Near-black navy `oklch(0.13 0.018 254)` |
-| surface | Raised navy `oklch(0.18 0.021 254)` |
-| elevated surface | `oklch(0.22 0.023 254)` |
-| text | Cool paper `oklch(0.95 0.01 242)` |
-| secondary text | Silver `oklch(0.82 0.012 245)` |
-| border | Navy slate `oklch(0.34 0.025 250)` |
-| accent | Ice blue `oklch(0.76 0.12 225)` |
-| secondary accent | Electric blue `oklch(0.61 0.16 255)` |
+| background | Warm white `oklch(0.99 0.004 82)` |
+| surface | Soft linen `oklch(0.96 0.006 80)` |
+| dark section | Deep navy `oklch(0.13 0.018 254)` |
+| elevated dark surface | `oklch(0.18 0.021 254)` |
+| text | Deep navy `oklch(0.13 0.018 254)` |
+| secondary text | Muted slate `oklch(0.46 0.018 252)` |
+| light border | Warm gray `oklch(0.87 0.008 78)` |
+| dark border | Navy slate `oklch(0.34 0.025 250)` |
+| accent | Restrained bronze `oklch(0.64 0.065 65)` |
+| brand marker | Ice blue `oklch(0.76 0.12 225)` |
+| secondary brand blue | `oklch(0.61 0.16 255)` |
 | danger | High-contrast semantic red `oklch(0.55 0.2 25)` |
 
 Declared in `globals.css` as `--color-*` and mirrored in the frontmatter. Use the token, never a raw hex.
