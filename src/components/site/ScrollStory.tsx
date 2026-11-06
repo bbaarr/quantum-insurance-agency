@@ -9,12 +9,21 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /** Five areas that start scattered and gather into one picture: the Quantum Q. */
 const pieces = [
-  { label: "חיסכון והשקעות", from: { x: -340, y: -210 }, to: { x: -150, y: -150 } },
-  { label: "פנסיה", from: { x: 360, y: -240 }, to: { x: 160, y: -155 } },
-  { label: "פרישה", from: { x: 420, y: 120 }, to: { x: 205, y: 40 } },
-  { label: "ביטוח חיים ובריאות", from: { x: -400, y: 170 }, to: { x: -200, y: 60 } },
-  { label: "רכוש ועסק", from: { x: 0, y: 300 }, to: { x: 0, y: 175 } },
+  { label: "חיסכון והשקעות", from: { x: -340, y: -230 }, to: { x: -300, y: -150 } },
+  { label: "פנסיה", from: { x: 360, y: -250 }, to: { x: 300, y: -150 } },
+  { label: "פרישה", from: { x: 430, y: 120 }, to: { x: 330, y: 40 } },
+  { label: "ביטוח חיים ובריאות", from: { x: -430, y: 170 }, to: { x: -330, y: 40 } },
+  { label: "רכוש ועסק", from: { x: 0, y: 255 }, to: { x: 0, y: 225 } },
 ];
+
+/**
+ * On narrow screens the pieces sit in one column sized to the stage, so no label
+ * crosses another, the Q, or the captions below it.
+ */
+function columnOffsets(stageHeight: number) {
+  const step = Math.max(46, Math.min(78, (stageHeight - 60) / 5));
+  return [-2, -1, 0, 1, 2].map((slot) => slot * step);
+}
 
 const captions = [
   { kicker: "01 / היום", text: "חיסכון כאן, פנסיה שם, פוליסה במגירה." },
@@ -36,15 +45,19 @@ export default function ScrollStory() {
         },
         (context) => {
           if (!context.conditions?.motion) return;
-          const scale = context.conditions.narrow ? 0.48 : 1;
+          const narrow = Boolean(context.conditions.narrow);
+          const canvas = rootRef.current?.querySelector<HTMLElement>(".story-canvas");
+          const narrowColumn = columnOffsets(canvas?.clientHeight ?? 400);
+          // The faint ring outline would sit behind the column, so it waits for the ring.
+          if (narrow) gsap.set(".story-ring-track", { autoAlpha: 0 });
           const q = gsap.utils.selector(rootRef);
 
           gsap.set(".story-piece", { xPercent: -50, yPercent: -50 });
           q(".story-piece").forEach((element, index) => {
             const piece = pieces[index];
             gsap.set(element, {
-              x: piece.from.x * scale,
-              y: piece.from.y * scale,
+              x: narrow ? 0 : piece.from.x,
+              y: narrow ? narrowColumn[index] + 24 : piece.from.y,
               autoAlpha: 0,
               rotate: gsap.utils.random(-10, 10),
             });
@@ -71,30 +84,35 @@ export default function ScrollStory() {
             .to(".story-piece", { autoAlpha: 1, rotate: 0, duration: 1, stagger: 0.12 })
             // They gather around the centre while the ring begins to draw.
             .to(".story-caption-0", { autoAlpha: 0, y: -30, duration: 0.6 }, "+=0.3")
-            .to(".story-caption-1", { autoAlpha: 1, y: 0, duration: 0.6 }, "<0.2");
+            .to(".story-caption-1", { autoAlpha: 1, y: 0, duration: 0.6 });
 
           q(".story-piece").forEach((element, index) => {
             const piece = pieces[index];
             timeline.to(
               element,
-              { x: piece.to.x * scale, y: piece.to.y * scale, duration: 1.6 },
+              narrow
+                ? { y: narrowColumn[index], duration: 1.6 }
+                : { x: piece.to.x, y: piece.to.y, duration: 1.6 },
               index === 0 ? "<" : "<0.05",
             );
           });
 
+          // Narrow: the column clears before the ring draws where it stood.
+          if (narrow) timeline.to(".story-piece", { autoAlpha: 0, duration: 0.7, stagger: 0.06 });
+
           timeline
-            .set(".story-ring", { autoAlpha: 1 }, "<0.2")
+            .set(".story-ring, .story-ring-track", { autoAlpha: 1 }, narrow ? ">" : "<0.2")
             .to(".story-ring", { strokeDashoffset: 0, duration: 2.2, ease: "power1.inOut" }, "<")
-            .to(".story-piece", { autoAlpha: 0.32, scale: 0.92, duration: 0.8 }, "<1.2")
+            .to(".story-piece", { autoAlpha: narrow ? 0 : 0.32, duration: 0.8 }, "<1.2")
             // The slash lands: the picture is complete.
             .to(".story-caption-1", { autoAlpha: 0, y: -30, duration: 0.6 })
-            .to(".story-caption-2", { autoAlpha: 1, y: 0, duration: 0.6 }, "<0.2")
+            .to(".story-caption-2", { autoAlpha: 1, y: 0, duration: 0.6 })
             .to(".story-slash", { autoAlpha: 1, x: 0, y: 0, duration: 1, ease: "back.out(1.6)" }, "<")
             .to(".story-glow", { autoAlpha: 1, scale: 1, duration: 1.2 }, "<0.3")
             .to(".story-piece", { autoAlpha: 0, duration: 0.6 })
             .to(".story-symbol", { scale: 0.82, yPercent: -10, duration: 1 }, "<")
             .to(".story-caption-2", { autoAlpha: 0, y: -30, duration: 0.6 }, "<")
-            .to(".story-final", { autoAlpha: 1, y: 0, duration: 0.9 }, "<0.3")
+            .to(".story-final", { autoAlpha: 1, y: 0, duration: 0.9 }, ">")
             .to({}, { duration: 0.6 });
         },
       );
