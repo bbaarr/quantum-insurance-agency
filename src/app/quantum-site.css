@@ -25,7 +25,7 @@
   --brand-night: var(--brand-ink);
   --brand-ice: var(--brand-sky);
 
-  --font-brand: "Heebo Variable", var(--font-sans);
+  --font-brand: var(--font-sans);
   --radius-control: 0.375rem;
 
   --background: var(--brand-paper);
@@ -1402,5 +1402,4 @@ html.lenis body {
     display: none;
   }
 }
-
 
