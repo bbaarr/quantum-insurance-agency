@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { ArrowUpLeft, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import BrandMotif from "@/components/brand/BrandMotif";
 import EnquiryEmailForm from "@/components/contact/EnquiryEmailForm";
-import QuantumMark from "@/components/brand/QuantumMark";
 import SiteFrame from "@/components/site/SiteFrame";
 import {
+  companyName,
   contactEmail,
   contactSections,
   officeAddress,
   officePhone,
   officePhoneHref,
   postalAddress,
+  servicePages,
   whatsappDisplay,
   whatsappHref,
 } from "@/lib/site-content";
@@ -17,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: "יצירת קשר | קוואנטום",
   description:
-    "צרו קשר עם קוואנטום לתכנון פיננסי, פנסיוני וביטוחי. טלפון, דוא״ל, WhatsApp וטופס פנייה מקוון.",
+    "תיאום פגישה עם קוואנטום סוכנות לביטוח: טלפון 077-8888777, office@quantum-ins.co.il, WhatsApp, או טופס פנייה. שדרות ירושלים 3, קרית מוצקין.",
   openGraph: {
     title: "יצירת קשר עם קוואנטום",
     description: "פרטי הקשר של קוואנטום וטופס פנייה מקוון.",
@@ -26,70 +27,58 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+interface ContactPageProps {
+  searchParams: Promise<{ service?: string | string[] }>;
+}
+
+export default async function ContactPage({ searchParams }: ContactPageProps) {
+  const { service } = await searchParams;
+  const serviceSlug = typeof service === "string" ? service : undefined;
+  const fromService = servicePages.find((item) => item.slug === serviceSlug);
+
   return (
     <SiteFrame sections={contactSections}>
-      <section className="page-hero contact-hero" id="contact-methods">
-        <div className="content-shell page-hero-grid">
-          <div className="page-hero-copy">
-            <p className="eyebrow"><span className="eyebrow-mark" /> אנחנו כאן לשיחה</p>
-            <h1>בואו נדבר.</h1>
-            <p className="page-hero-summary">
-              בחרו את הדרך שנוחה לכם — דוא״ל, שיחת טלפון, WhatsApp או פנייה מקוונת.
+      <section className="page-hero contact-hero">
+        <BrandMotif className="page-hero-motif" surface="paper" />
+        <div className="content-shell contact-layout">
+          <div className="contact-intro" id="contact-methods">
+            <h1>נשמח להכיר.</h1>
+            <p className="lead">
+              {fromService
+                ? `השאירו פרטים ונחזור אליכם לתיאום פגישה בנושא ${fromService.navTitle}.`
+                : "השאירו פרטים ונחזור אליכם לתיאום פגישה, או פנו אלינו ישירות."}
             </p>
-          </div>
-          <div aria-hidden="true" className="page-hero-mark contact-page-mark">
-            <QuantumMark />
-            <span className="mark-caption">Q / CONTACT</span>
-          </div>
-        </div>
-      </section>
 
-      <section className="content-section contact-page-section">
-        <div className="content-shell contact-page-grid">
-          <div className="contact-methods">
-            <article className="contact-method-card">
-              <Mail aria-hidden="true" size={19} strokeWidth={1.7} />
-              <p className="contact-method-label">דוא״ל</p>
-              <a dir="ltr" href={`mailto:${contactEmail}`}>{contactEmail}</a>
-            </article>
-            <article className="contact-method-card">
-              <Phone aria-hidden="true" size={19} strokeWidth={1.7} />
-              <p className="contact-method-label">טלפון במשרד</p>
-              <a dir="ltr" href={`tel:${officePhoneHref}`}>{officePhone}</a>
-            </article>
-            <article className="contact-method-card">
-              <MessageCircle aria-hidden="true" size={19} strokeWidth={1.7} />
-              <p className="contact-method-label">WhatsApp</p>
-              <a dir="ltr" href={whatsappHref} rel="noreferrer" target="_blank">{whatsappDisplay}</a>
-            </article>
-
-            <div className="office-address-card">
-              <p className="contact-method-label"><MapPin aria-hidden="true" size={17} /> כתובת</p>
-              <p>{officeAddress}</p>
-              <p className="postal-address-label">כתובת למשלוח דואר</p>
-              <p>{postalAddress}</p>
-            </div>
+            <dl className="contact-details">
+              <div>
+                <dt>טלפון</dt>
+                <dd><a href={`tel:${officePhoneHref}`}><bdi dir="ltr">{officePhone}</bdi></a></dd>
+              </div>
+              <div>
+                <dt>דוא״ל</dt>
+                <dd><a href={`mailto:${contactEmail}`}><bdi dir="ltr">{contactEmail}</bdi></a></dd>
+              </div>
+              <div>
+                <dt>WhatsApp</dt>
+                <dd><a href={whatsappHref} rel="noopener noreferrer" target="_blank"><bdi dir="ltr">{whatsappDisplay}</bdi></a></dd>
+              </div>
+              <div>
+                <dt>המשרד</dt>
+                <dd>{officeAddress}</dd>
+              </div>
+              <div>
+                <dt>דואר למכתבים</dt>
+                <dd>{postalAddress}</dd>
+              </div>
+            </dl>
+            <p className="contact-company">{companyName}</p>
           </div>
 
-          <div className="contact-form-column" id="enquiry-form">
-            <div className="contact-form-heading">
-              <p className="eyebrow"><span className="eyebrow-mark" /> טופס פנייה</p>
-              <h2>נחזור אליכם</h2>
-              <p>השאירו פרטי קשר ונושא קצר. אל תשלחו בטופס מידע פיננסי, רפואי או ביטוחי רגיש.</p>
-            </div>
-            <EnquiryEmailForm />
+          <div className="contact-form-card" id="enquiry-form">
+            <h2>השארת פרטים</h2>
+            <p>אין צורך לצרף מסמכים. נא לא לשלוח בטופס מספרי חשבון או מידע רפואי.</p>
+            <EnquiryEmailForm defaultService={serviceSlug} />
           </div>
-        </div>
-      </section>
-
-      <section className="contact-location-band">
-        <div className="content-shell location-band-inner">
-          <p>קוואנטום סוכנות לביטוח (2014) בע״מ</p>
-          <a href={`mailto:${contactEmail}`}>
-            <span>לכל שאלה, כתבו לנו</span>
-            <ArrowUpLeft aria-hidden="true" size={17} />
-          </a>
         </div>
       </section>
     </SiteFrame>

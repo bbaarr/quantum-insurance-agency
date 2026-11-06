@@ -8,11 +8,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { sendQuantumEnquiry } from "@/app/actions";
-import { contactEmail, officePhone, officePhoneHref } from "@/lib/site-content";
+import { contactEmail, officePhone, officePhoneHref, servicePages } from "@/lib/site-content";
 
 const initialState = { status: "idle" as const, message: "" };
 
-export default function EnquiryEmailForm() {
+interface EnquiryEmailFormProps {
+  /** Service slug to preselect, when the visitor arrives from a service page. */
+  defaultService?: string;
+}
+
+export default function EnquiryEmailForm({ defaultService }: EnquiryEmailFormProps) {
+  const preselected = servicePages.find((service) => service.slug === defaultService)?.navTitle ?? "";
   const [state, formAction, pending] = useActionState(sendQuantumEnquiry, initialState);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -22,13 +28,6 @@ export default function EnquiryEmailForm() {
 
   return (
     <form action={formAction} className="enquiry-form" ref={formRef}>
-      <div className="enquiry-form-heading">
-        <p className="enquiry-form-title">נשמח לשמוע מכם</p>
-        <p className="enquiry-form-description">
-          השאירו פרטי קשר ונושא לפנייה. אין לכלול מספרי חשבון או מידע פיננסי, רפואי או ביטוחי רגיש.
-        </p>
-      </div>
-
       <div aria-hidden="true" className="enquiry-honeypot">
         <Label htmlFor="enquiry-website">השאירו שדה זה ריק</Label>
         <Input autoComplete="off" id="enquiry-website" name="website" tabIndex={-1} />
@@ -49,13 +48,11 @@ export default function EnquiryEmailForm() {
         </div>
         <div className="enquiry-field">
           <Label className="enquiry-label" htmlFor="enquiry-service">תחום שמעניין אתכם <span>(לא חובה)</span></Label>
-          <select className="enquiry-control enquiry-select" defaultValue="" id="enquiry-service" name="service">
+          <select className="enquiry-control enquiry-select" defaultValue={preselected} id="enquiry-service" name="service">
             <option value="">בחירת תחום</option>
-            <option value="תכנון פיננסי">תכנון פיננסי</option>
-            <option value="תכנון פנסיוני">תכנון פנסיוני</option>
-            <option value="תכנון פרישה">תכנון פרישה</option>
-            <option value="ביטוחי פרט">ביטוחי פרט</option>
-            <option value="ביטוח רכוש ועסק">ביטוח רכוש ועסק</option>
+            {servicePages.map((service) => (
+              <option key={service.slug} value={service.navTitle}>{service.navTitle}</option>
+            ))}
             <option value="אחר">אחר</option>
           </select>
         </div>

@@ -3,6 +3,7 @@
 import "server-only";
 import { headers } from "next/headers";
 import { sendEmail } from "@/lib/email";
+import { servicePages } from "@/lib/site-content";
 
 /**
  * Per-IP throttle for the contact form, so it can't be used to flood the office
@@ -38,14 +39,7 @@ interface EnquirySubmissionState {
   message: string;
 }
 
-const serviceOptions = [
-  "תכנון פיננסי",
-  "תכנון פנסיוני",
-  "תכנון פרישה",
-  "ביטוחי פרט",
-  "ביטוח רכוש ועסק",
-  "אחר",
-] as const;
+const serviceOptions = [...servicePages.map((service) => service.navTitle), "אחר"];
 
 function readText(formData: FormData, field: string): string {
   const value = formData.get(field);
