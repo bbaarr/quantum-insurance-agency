@@ -7,7 +7,9 @@ import "./globals.css";
 // hangs at compile and the preview renders blank. Use the zero-network stack in
 // globals.css, or self-host a .woff2 via next/font/local.
 export const metadata: Metadata = {
-  title: "App",
+  title: "Quantum | Financial & Insurance Planning",
+  description:
+    "Family financial planning, pension reviews, retirement planning and insurance guidance from Quantum.",
 };
 
 export default function RootLayout({
