@@ -1,0 +1,375 @@
+/* -------------------------------------------------------------------------
+   About page.
+   Desk and tablet get the site's existing page language (.about-desktop).
+   Phones get their own editorial layout (.about-mobile): a navy hero, the
+   skyline photograph, then alternating ice / navy / paper panels with cyan
+   rules and one full-width contact CTA. Exactly one of the two renders at
+   any width, so phone work here cannot reach a desktop layout.
+   ------------------------------------------------------------------------- */
+
+.about-page,
+.about-zone {
+  display: block;
+}
+
+.about-mobile {
+  display: none;
+}
+
+.point-body {
+  max-width: 34rem;
+  color: var(--brand-grey);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.process-note {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--brand-line);
+  color: var(--brand-grey);
+  font-size: 0.98rem;
+}
+
+@media (max-width: 42.5em) {
+  .about-desktop {
+    display: none;
+  }
+
+  .about-mobile {
+    display: block;
+    --m-navy: oklch(0.245 0.045 255);
+    --m-navy-deep: oklch(0.185 0.04 255);
+    --m-navy-raised: oklch(0.305 0.04 255);
+    --m-cyan: oklch(0.82 0.13 219);
+    --m-ice: oklch(0.955 0.018 235);
+    --m-white: oklch(1 0 0);
+    --m-pale: oklch(0.94 0.015 240);
+    --m-muted-on-navy: oklch(0.82 0.02 240);
+    --m-ink: oklch(0.21 0.03 255);
+    --m-grey: oklch(0.44 0.02 255);
+    --m-body: oklch(0.36 0.02 255);
+    --m-hair: oklch(0.88 0.015 240);
+    --m-hair-on-navy: oklch(0.34 0.04 255);
+    --m-pale-blue: oklch(0.87 0.06 225);
+    --m-slate: oklch(0.42 0.06 255);
+    background: var(--m-white);
+    color: var(--m-ink);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Hero: dark navy, oversized type, deliberate line breaks. */
+
+  .about-mobile .m-hero {
+    position: relative;
+    padding: 2.6rem 1.4rem 3rem;
+    background:
+      radial-gradient(30rem 18rem at 88% -10%, oklch(0.34 0.07 230 / 0.55), transparent 70%),
+      var(--m-navy);
+    color: var(--m-pale);
+    overflow: hidden;
+  }
+
+  .about-mobile .m-hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--m-muted-on-navy);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+  }
+
+  .about-mobile .m-hero__tick {
+    width: 1.65rem;
+    height: 2px;
+    flex: none;
+    background: var(--m-cyan);
+  }
+
+  .about-mobile .m-hero__title {
+    display: grid;
+    gap: 0.05em;
+    margin: 1.15rem 0 1.2rem;
+    color: var(--m-white);
+    font-size: clamp(2.35rem, 11vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .about-mobile .m-hero__line--soft {
+    color: var(--m-pale-blue);
+  }
+
+  .about-mobile .m-hero__tagline {
+    margin-bottom: 1.25rem;
+    color: var(--m-cyan);
+    font-size: 1.22rem;
+    font-weight: 650;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  .about-mobile .m-hero__lead {
+    max-width: 34rem;
+    color: var(--m-muted-on-navy);
+    font-size: 0.99rem;
+    line-height: 1.85;
+  }
+
+  .about-mobile .m-hero__rule {
+    display: block;
+    width: 3.25rem;
+    height: 3px;
+    margin-top: 2rem;
+    background: var(--m-cyan);
+  }
+
+  /* The building photograph, full-bleed under the hero. */
+
+  .about-mobile .m-photo {
+    margin: 0;
+    background: var(--m-navy-deep);
+    border-block-end: 3px solid var(--m-cyan);
+  }
+
+  .about-mobile .m-photo__image {
+    display: block;
+    width: 100%;
+    height: clamp(13rem, 58vw, 19rem);
+    object-fit: cover;
+    object-position: center 38%;
+  }
+
+  /* Panels */
+
+  .about-mobile .m-panel {
+    padding: 3.1rem 1.4rem 3.3rem;
+  }
+
+  .about-mobile .m-panel--ice {
+    background: var(--m-ice);
+    color: var(--m-ink);
+  }
+
+  .about-mobile .m-panel--paper {
+    background: var(--m-white);
+    color: var(--m-ink);
+  }
+
+  .about-mobile .m-panel--navy {
+    background: var(--m-navy);
+    color: var(--m-pale);
+  }
+
+  .about-mobile .m-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 1.1rem;
+    color: var(--m-grey);
+    font-size: 0.76rem;
+    font-weight: 650;
+    letter-spacing: 0.14em;
+  }
+
+  .about-mobile .m-kicker::before {
+    content: "";
+    width: 1.5rem;
+    height: 2px;
+    flex: none;
+    background: var(--m-cyan);
+  }
+
+  .about-mobile .m-kicker--light {
+    color: var(--m-muted-on-navy);
+  }
+
+  .about-mobile .m-h2 {
+    margin-bottom: 1.4rem;
+    color: var(--m-ink);
+    font-size: clamp(1.85rem, 7.4vw, 2.35rem);
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    /* The phone layout is read as a poster: its headlines never wait on a
+       scroll trigger, so the page reads complete at any scroll position. */
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .about-mobile .m-h2--light {
+    color: var(--m-white);
+  }
+
+  .about-mobile .m-h2__soft {
+    color: var(--m-pale-blue);
+  }
+
+  .about-mobile .m-h2__soft-dark {
+    color: var(--m-slate);
+  }
+
+  .about-mobile .m-prose {
+    display: grid;
+    gap: 1rem;
+    color: var(--m-body);
+    font-size: 1.01rem;
+    line-height: 1.85;
+  }
+
+  .about-mobile .m-panel--navy .m-prose {
+    color: var(--m-muted-on-navy);
+  }
+
+  /* Touch cards */
+
+  .about-mobile .m-cards {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1.9rem;
+  }
+
+  .about-mobile .m-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.9rem;
+    align-items: start;
+    min-height: 4.75rem;
+    padding: 1.05rem 1.1rem;
+    background: var(--m-navy-raised);
+    border: 1px solid var(--m-hair-on-navy);
+    border-inline-start: 3px solid var(--m-cyan);
+    border-radius: 0.35rem;
+  }
+
+  .about-mobile .m-card__number {
+    padding-top: 0.2rem;
+    color: var(--m-cyan);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .about-mobile .m-card__text {
+    color: var(--m-pale);
+    font-size: 0.99rem;
+    line-height: 1.6;
+  }
+
+  .about-mobile .m-note {
+    margin-top: 1.9rem;
+    padding: 1.15rem 1.15rem;
+    background: var(--m-ice);
+    border-inline-start: 3px solid var(--m-cyan);
+    border-radius: 0.35rem;
+  }
+
+  .about-mobile .m-note__label {
+    margin-bottom: 0.5rem;
+    color: var(--m-grey);
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .about-mobile .m-note p:last-child {
+    color: var(--m-body);
+    font-size: 0.97rem;
+    line-height: 1.72;
+  }
+
+  .about-mobile .m-links {
+    display: grid;
+    margin-top: 0.4rem;
+    border-top: 1px solid var(--m-hair);
+  }
+
+  .about-mobile .m-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.6rem;
+    padding-block: 0.95rem;
+    border-bottom: 1px solid var(--m-hair);
+    color: var(--m-ink);
+    font-size: 1.03rem;
+    font-weight: 600;
+  }
+
+  .about-mobile .m-link svg {
+    flex: none;
+    color: var(--m-slate);
+  }
+
+  /* The page's single CTA, full width. */
+
+  .about-mobile .m-cta {
+    padding: 3.2rem 1.4rem 3.4rem;
+    background: var(--m-navy);
+    border-top: 4px solid var(--m-cyan);
+    color: var(--m-pale);
+  }
+
+  .about-mobile .m-cta__text {
+    margin-bottom: 1.9rem;
+    color: var(--m-muted-on-navy);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .about-mobile .m-cta__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    min-height: 3.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0.4rem;
+    background: var(--m-white);
+    color: var(--m-ink);
+    font-size: 1.06rem;
+    font-weight: 700;
+  }
+
+  .about-mobile .m-cta__button:active {
+    translate: 0 1px;
+  }
+
+  .about-mobile .m-cta__button:focus-visible {
+    outline: 3px solid var(--m-cyan);
+    outline-offset: 3px;
+  }
+
+  .about-mobile .m-closing {
+    padding: 3rem 1.4rem 3.4rem;
+    background: var(--m-navy-deep);
+    color: var(--m-pale);
+  }
+
+  .about-mobile .m-closing__mark {
+    width: 2.75rem;
+    height: auto;
+    margin-bottom: 1.35rem;
+  }
+
+  .about-mobile .m-closing__statement {
+    margin-bottom: 0.9rem;
+    color: var(--m-white);
+    font-size: 1.26rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  .about-mobile .m-closing__statement--soft {
+    margin-bottom: 0;
+    color: var(--m-muted-on-navy);
+    font-size: 0.99rem;
+    font-weight: 500;
+  }
+}

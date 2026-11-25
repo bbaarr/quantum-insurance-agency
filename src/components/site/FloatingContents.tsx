@@ -16,6 +16,11 @@ import {
 } from "@/components/ui/sheet";
 import { siteRoutes } from "@/lib/site-content";
 
+/** The About page sits next to the home page in the menu. */
+const navigationRoutes = siteRoutes.flatMap((route) =>
+  route.href === "/" ? [route, { href: "/about", label: "אודות" }] : [route],
+);
+
 interface FloatingContentsProps {
   sections: { id: string; label: string }[];
 }
@@ -49,7 +54,7 @@ export default function FloatingContents({ sections }: FloatingContentsProps) {
 
         <nav aria-label="כל עמודי האתר" className="contents-navigation">
           <p className="contents-label">עמודים</p>
-          {siteRoutes.map((route) => (
+          {navigationRoutes.map((route) => (
             <SheetClose key={route.href} render={
               <Link
                 aria-current={pathname === route.href ? "page" : undefined}
