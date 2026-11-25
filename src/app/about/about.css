@@ -129,17 +129,42 @@
   /* The building photograph, full-bleed under the hero. */
 
   .about-mobile .m-photo {
+    position: relative;
+    height: clamp(13rem, 58vw, 19rem);
     margin: 0;
+    overflow: hidden;
     background: var(--m-navy-deep);
     border-block-end: 3px solid var(--m-cyan);
   }
 
+  /* The photograph is graded into the palette: navy at the seams so the
+     bright sky cannot bleed into the page around it. */
+  .about-mobile .m-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      oklch(0.245 0.045 255 / 0.6) 0%,
+      oklch(0.245 0.045 255 / 0.12) 26%,
+      oklch(0.245 0.045 255 / 0.08) 62%,
+      oklch(0.185 0.04 255 / 0.5) 100%
+    );
+  }
+
+  /* The print asset fades to white on its right edge; the frame is filled by
+     the photographed block itself so no white band shows on a phone. */
   .about-mobile .m-photo__image {
-    display: block;
-    width: 100%;
-    height: clamp(13rem, 58vw, 19rem);
+    position: absolute;
+    top: -12%;
+    left: 0;
+    width: auto;
+    height: 142%;
+    max-width: none;
     object-fit: cover;
-    object-position: center 38%;
+    object-position: left top;
+    filter: saturate(0.92) contrast(1.03);
   }
 
   /* Panels */
