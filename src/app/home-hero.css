@@ -1,0 +1,163 @@
+/*
+  Homepage hero photograph and the solutions band beneath it.
+  Kept with the page, the way about.css is kept with the About page.
+  Selectors carry .quantum-site so they win over the shared stylesheet.
+*/
+
+/* The building photograph behind the hero — the original site's full-bleed
+   treatment: the tower on the left, dissolved into paper towards the reading
+   side so the copy keeps its contrast. */
+
+.quantum-site .home-hero {
+  isolation: isolate;
+}
+
+.quantum-site .home-hero-image {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  margin: 0;
+  pointer-events: none;
+}
+
+.quantum-site .home-hero-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      270deg,
+      var(--brand-paper) 0%,
+      color-mix(in oklch, var(--brand-paper) 92%, transparent) 35%,
+      color-mix(in oklch, var(--brand-paper) 24%, transparent) 70%,
+      transparent 100%
+    ),
+    linear-gradient(0deg, color-mix(in oklch, var(--brand-paper) 90%, transparent), transparent 45%);
+}
+
+.quantum-site .home-hero-image img {
+  object-fit: cover;
+  object-position: center 48%;
+}
+
+.quantum-site .home-hero-inner {
+  z-index: 1;
+  padding-block: clamp(1rem, 2vw, 2rem);
+}
+
+/* The solutions band that sits directly under the hero. */
+
+.quantum-site .intro-band {
+  padding-block: clamp(2.75rem, 5vw, 4rem) clamp(3rem, 5.5vw, 4.5rem);
+  border-bottom: 1px solid var(--brand-line);
+  background: linear-gradient(
+    180deg,
+    var(--brand-paper),
+    color-mix(in oklch, var(--brand-mist) 65%, var(--brand-paper))
+  );
+}
+
+/* The line, ruled either side, as it is set on the brand's stationery. */
+
+.quantum-site .intro-band-head {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 4vw, 3rem);
+}
+
+.quantum-site .intro-band-head::before,
+.quantum-site .intro-band-head::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--brand-line);
+}
+
+.quantum-site .intro-band-title {
+  flex: 0 1 auto;
+  max-width: none;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(1.15rem, 1.1rem + 0.7vw, 1.9rem);
+  letter-spacing: -0.01em;
+}
+
+.quantum-site .solutions-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin: clamp(2rem, 3.5vw, 2.75rem) 0 0;
+}
+
+.quantum-site .solutions-strip > li {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.85rem;
+  padding-inline: clamp(0.5rem, 1.4vw, 1.25rem);
+  text-align: center;
+}
+
+.quantum-site .solutions-strip > li + li {
+  border-inline-start: 1px solid var(--brand-line);
+}
+
+.quantum-site .solution-icon {
+  display: block;
+  color: var(--brand-ink);
+}
+
+.quantum-site .solution-icon svg {
+  display: block;
+  width: clamp(2.8rem, 3.6vw, 3.8rem);
+  height: auto;
+}
+
+.quantum-site .solution-label {
+  max-width: 11ch;
+  color: var(--brand-ink);
+  font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+  font-weight: 550;
+  line-height: 1.4;
+}
+
+@media (max-width: 68em) {
+  .quantum-site .solutions-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem 0;
+  }
+
+  .quantum-site .solutions-strip > li + li {
+    border-inline-start: 0;
+  }
+}
+
+@media (max-width: 42.5em) {
+  /* On a phone the building becomes a soft backdrop behind the copy. */
+  .quantum-site .home-hero-image {
+    opacity: 0.5;
+  }
+
+  .quantum-site .home-hero-image::after {
+    background:
+      linear-gradient(
+        0deg,
+        var(--brand-paper) 0%,
+        color-mix(in oklch, var(--brand-paper) 82%, transparent) 55%,
+        color-mix(in oklch, var(--brand-paper) 12%, transparent)
+      ),
+      linear-gradient(270deg, color-mix(in oklch, var(--brand-paper) 72%, transparent), transparent 80%);
+  }
+
+  .quantum-site .home-hero-inner {
+    align-self: end;
+  }
+
+  .quantum-site .intro-band-head {
+    gap: 0.9rem;
+  }
+
+  .quantum-site .solutions-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 0;
+  }
+}

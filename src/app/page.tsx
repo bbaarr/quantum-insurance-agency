@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import BrandMotif from "@/components/brand/BrandMotif";
 import QuantumLogo from "@/components/brand/QuantumLogo";
 import ScrollStory from "@/components/site/ScrollStory";
 import SiteFrame from "@/components/site/SiteFrame";
+import SolutionsStrip from "@/components/site/SolutionsStrip";
 import { homeFaq, homeSections, officePhone, officePhoneHref, servicePages } from "@/lib/site-content";
+import "./home-hero.css";
 
 export const metadata: Metadata = {
   title: "קוואנטום | ביטוח, פנסיה ותכנון פיננסי",
@@ -27,6 +30,15 @@ export default function Home() {
     <SiteFrame sections={homeSections}>
       <section className="home-hero" id="home">
         <BrandMotif className="hero-motif" data-parallax="8" surface="paper" />
+        <figure className="home-hero-image">
+          <Image
+            alt="מגדל זכוכית וקו עירוני באור בוקר בהיר"
+            fill
+            priority
+            sizes="100vw"
+            src="/quantum-skyline.webp"
+          />
+        </figure>
         <div className="content-shell home-hero-inner">
           <p className="kicker">לא עוד סוכנות ביטוח. בית של פתרונות.</p>
           <h1>כל הסיכונים.<br />כל הפתרונות.<br />כתובת אחת.</h1>
@@ -44,7 +56,10 @@ export default function Home() {
 
       <section className="section intro-band" aria-labelledby="solutions-heading">
         <div className="content-shell">
-          <h2 className="intro-band-title" id="solutions-heading">פתרונות ביטוח ופיננסים בכל תחומי החיים.</h2>
+          <div className="intro-band-head">
+            <h2 className="intro-band-title" id="solutions-heading">פתרונות ביטוח ופיננסים בכל תחומי החיים.</h2>
+          </div>
+          <SolutionsStrip />
         </div>
       </section>
 
@@ -130,6 +145,3 @@ export default function Home() {
     </SiteFrame>
   );
 }
-
-
-
