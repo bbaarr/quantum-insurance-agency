@@ -6,7 +6,6 @@ import {
   officeAddress,
   officePhone,
   officePhoneHref,
-  postalAddress,
   servicePages,
   whatsappDisplay,
   whatsappHref,
@@ -42,7 +41,6 @@ export default function SiteFooter() {
         <div className="footer-column">
           <p className="footer-label">המשרד</p>
           <p>{officeAddress}</p>
-          <p className="footer-muted">כתובת דואר למכתבים:<br />{postalAddress}</p>
         </div>
       </div>
 

@@ -40,7 +40,6 @@ export const whatsappPhone = "+972538536090";
 export const whatsappDisplay = "053-853-6090";
 export const whatsappHref = `https://wa.me/${whatsappPhone.replace(/\D/g, "")}?text=${encodeURIComponent("שלום קוואנטום, אשמח לקבל מידע על השירותים שלכם.")}`;
 export const officeAddress = "שדרות ירושלים 3, קרית מוצקין, בניין ״תקשוב״";
-export const postalAddress = "פיט מונדריאן 7, קרית אתא 2826307";
 
 export const servicePages: ServicePageContent[] = [
   {
@@ -385,3 +384,4 @@ export const contactSections = [
   { id: "contact-methods", label: "פרטי קשר" },
   { id: "enquiry-form", label: "השארת פרטים" },
 ];
+

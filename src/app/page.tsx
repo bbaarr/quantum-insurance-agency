@@ -28,10 +28,10 @@ export default function Home() {
       <section className="home-hero" id="home">
         <BrandMotif className="hero-motif" data-parallax="8" surface="paper" />
         <div className="content-shell home-hero-inner">
-          <p className="kicker">קוואנטום סוכנות לביטוח</p>
-          <h1>רואים רחוק.<br />מתכננים נכון.</h1>
+          <p className="kicker">לא עוד סוכנות ביטוח. בית של פתרונות.</p>
+          <h1>כל הסיכונים.<br />כל הפתרונות.<br />כתובת אחת.</h1>
           <p className="lead">
-            חיסכון, פנסיה, פרישה וביטוח הם חלקים של אותה תמונה. אנחנו עוזרים לכם לראות אותה במלואה, ומלווים אתכם ואת המשפחה לאורך שלבי החיים.
+            מעטפת ביטוחית ופיננסית מקיפה לעסקים, לארגונים ולקוחות פרטיים. שילוב של מומחיות, ניסיון וגישה למגוון רחב של פתרונות בכל ענפי הביטוח, המאפשרים לנו להתאים לכל לקוח את המענה הנכון עבורו.
           </p>
           <div className="hero-actions">
             <Link className="button button-ink" href="/contact">לתיאום פגישה</Link>
@@ -39,6 +39,12 @@ export default function Home() {
               <bdi dir="ltr">{officePhone}</bdi>
             </a>
           </div>
+        </div>
+      </section>
+
+      <section className="section intro-band" aria-labelledby="solutions-heading">
+        <div className="content-shell">
+          <h2 className="intro-band-title" id="solutions-heading">פתרונות ביטוח ופיננסים בכל תחומי החיים.</h2>
         </div>
       </section>
 
@@ -124,3 +130,6 @@ export default function Home() {
     </SiteFrame>
   );
 }
+
+
+

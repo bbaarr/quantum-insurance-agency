@@ -514,12 +514,23 @@
 }
 
 .home-hero h1 {
-  max-width: 11ch;
+  max-width: 18ch;
   margin-bottom: 1.75rem;
 }
 
 .home-hero .lead {
   max-width: 34rem;
+}
+
+/* The solutions heading that sits directly under the hero. */
+
+.intro-band {
+  padding-block: clamp(2.75rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--brand-line);
+}
+
+.intro-band-title {
+  max-width: 24ch;
 }
 
 .hero-actions {
@@ -1743,3 +1754,4 @@ html:has(.quantum-site) {
   background: var(--brand-paper);
   color: var(--brand-ink);
 }
+

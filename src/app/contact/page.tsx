@@ -10,7 +10,6 @@ import {
   officeAddress,
   officePhone,
   officePhoneHref,
-  postalAddress,
   servicePages,
   whatsappDisplay,
   whatsappHref,
@@ -80,7 +79,6 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               <div>
                 <p className="contact-method-label">המשרד</p>
                 <p className="contact-office-address">{officeAddress}</p>
-                <p className="contact-office-postal">כתובת דואר למכתבים: {postalAddress}</p>
                 <p className="contact-office-company">{companyName}</p>
               </div>
             </div>

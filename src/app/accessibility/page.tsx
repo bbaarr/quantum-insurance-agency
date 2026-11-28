@@ -7,7 +7,6 @@ import {
   accessibilityStatement,
   companyName,
   officeAddress,
-  postalAddress,
 } from "@/lib/site-content";
 
 export const metadata: Metadata = {
@@ -92,10 +91,6 @@ export default function AccessibilityPage() {
             <div>
               <dt>דוא״ל</dt>
               <dd><a href={`mailto:${s.coordinatorEmail}`}><bdi dir="ltr">{s.coordinatorEmail}</bdi></a></dd>
-            </div>
-            <div>
-              <dt>דואר</dt>
-              <dd>{postalAddress}</dd>
             </div>
           </dl>
           <p>כדי שנוכל לטפל בפנייה, נא לפרט את הבעיה, את העמוד שבו נתקלתם בה ואת הדפדפן או הטכנולוגיה המסייעת שבהם השתמשתם.</p>
